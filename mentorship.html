@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>HDA Mentorship | Himanshu Deka</title>
+  <meta name="description" content="HDA Mentorship: Build a successful coaching career with structured guidance, weekly calls, and Himanshu's 4-Layer Coaching System." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23fff'/><text y='.9em' font-size='60' font-family='system-ui' font-weight='900' fill='%230a0a0a' x='50%' text-anchor='middle' dominant-baseline='auto' dy='24'>HDA</text></svg>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HDA Mentorship | Himanshu Deka" />
+  <meta property="og:description" content="Build a successful coaching career with the HDA Mentorship program." />
+  <meta property="og:image" content="images/priyangshu-results.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html">
+        <img src="images/hda-logo.jpeg" alt="HDA" class="nav-logo-img">
+        <span class="nav-logo-sep"></span>
+        <span>Himanshu Deka</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="coaching.html">Coaching</a></li>
+        <li><a href="course.html">Course</a></li>
+        <li><a href="mentorship.html" class="active">Mentorship</a></li>
+        <li><a href="#" onclick="openApplyModal();return false;" class="nav-cta">Apply Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="course.html">Course</a>
+    <a href="mentorship.html">Mentorship</a>
+    <a href="#" onclick="openApplyModal();return false;" class="mm-cta">Apply Now</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="page-eyebrow fade-in">HDA Mentorship</span>
+      <h1 class="fade-in">Develop the Skills.<br/>Build the Authority.<br/>Grow the Career.</h1>
+      <p class="page-hero-sub fade-in">A structured mentorship for fitness coaches who are ready to stop guessing and start building a real coaching business.</p>
+      <div class="hero-actions fade-in" style="justify-content:center; margin-top:32px;">
+        <button onclick="openApplyModal()" class="btn btn-primary btn-lg">Apply for Mentorship</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HDA MENTORSHIP INTRO -->
+  <section class="programs-section" id="mentorship">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">The Program</span>
+        <h2>Develop the Skills, Clarity,<br/>and Authority to Build a<br/>Successful Coaching Career</h2>
+        <p>Many capable coaches struggle, not because they lack passion, but because they lack guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTORSHIP STRUGGLES -->
+  <section class="pain-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">The Challenge</span>
+        <h2>Coaches Commonly Struggle With</h2>
+      </div>
+      <div class="included-grid included-grid--3col fade-in">
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <h3>Difficulty Attracting Clients</h3>
+          <p>You have the skills but need help with marketing.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <h3>Uncertainty About Online</h3>
+          <p>Unsure how to transition from offline to remote.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <h3>Inconsistent Presence</h3>
+          <p>Lack of clarity about target audience and content.</p>
+        </div>
+      </div>
+      <div class="pain-cta fade-in" style="margin-top:48px; max-width:700px; margin-left:auto; margin-right:auto; text-align:center; position:static;">
+        <div class="quote">
+          In most cases, the problem is not effort. The problem is lack of guidance and structured development.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTORSHIP INCLUDES -->
+  <section class="included-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">What You Get</span>
+        <h2>What the Mentorship Includes</h2>
+      </div>
+      <div class="included-grid">
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Weekly Mentorship Call</h3>
+          <p>45-60 minute sessions to review progress and solve challenges.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Direct WhatsApp Access</h3>
+          <p>Continuous access for questions and accountability.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3>Personalised Roadmap</h3>
+          <p>Built from your initial assessment.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>6-12 Month Commitment</h3>
+          <p>Minimum 6 months for real development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVELOPMENT AREAS -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Areas of Development</span>
+        <h2>What You'll Work On</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3>Coaching Knowledge</h3>
+          <p>Fundamentals and problem-solving for real client situations.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Communication Skills</h3>
+          <p>Explain concepts clearly and build trust with clients.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Sales & Offer Creation</h3>
+          <p>Coaching packages, pricing strategies, conversations.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/></svg>
+          </div>
+          <h3>Personal Branding</h3>
+          <p>Target audience clarity, content creation, authority.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-LAYER COACHING SYSTEM -->
+  <section class="four-layer-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">The Methodology</span>
+        <h2>The 4-Layer<br/>Coaching System</h2>
+        <p>The framework Himanshu uses inside the mentorship to turn effort into consistent clients.</p>
+      </div>
+
+      <div class="four-layer-grid">
+
+        <div class="layer-card fade-in">
+          <div class="layer-num">01</div>
+          <div class="layer-body">
+            <h3>Positioning</h3>
+            <p>Define a clear niche so the right people immediately understand who you help and why you're the one to help them.</p>
+            <div class="layer-point">→ Defined a clear niche</div>
+          </div>
+        </div>
+
+        <div class="layer-card fade-in">
+          <div class="layer-num">02</div>
+          <div class="layer-body">
+            <h3>Content with Intent</h3>
+            <p>Stop chasing views. Create content that solves real problems and pulls in qualified leads organically.</p>
+            <div class="layer-point">→ Stopped chasing views</div>
+            <div class="layer-point">→ Started solving real problems</div>
+          </div>
+        </div>
+
+        <div class="layer-card fade-in">
+          <div class="layer-num">03</div>
+          <div class="layer-body">
+            <h3>Conversion System</h3>
+            <p>Move from random DM conversations to a structured sales process that converts consistently.</p>
+            <div class="layer-point">→ Shifted from DM closing</div>
+            <div class="layer-point">→ Moved to structured calls</div>
+          </div>
+        </div>
+
+        <div class="layer-card fade-in">
+          <div class="layer-num">04</div>
+          <div class="layer-body">
+            <h3>Coaching System</h3>
+            <p>Build the backend that keeps clients happy, retained, and referring others — without burning out.</p>
+            <div class="layer-point">→ Structured client delivery</div>
+            <div class="layer-point">→ Manage multiple clients</div>
+            <div class="layer-point">→ Improved retention & referrals</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Who it's for callout -->
+      <div class="layer-callout fade-in">
+        <div class="layer-callout-text">
+          <p class="layer-callout-label">This is for you if you're a coach who is</p>
+          <div class="layer-callout-points">
+            <span>Stuck despite putting in effort</span>
+            <span>Posting but not converting</span>
+            <span>Ready to build a real system</span>
+          </div>
+        </div>
+        <button onclick="openApplyModal()" class="btn btn-primary">
+          Enquire About Mentorship
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MENTORSHIP TESTIMONIAL — PRIYANSHU -->
+  <section class="mentorship-story-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Mentorship in Action</span>
+        <h2>From 2–3 Clients to<br/>20+ in 8 Months</h2>
+        <p>Priyanshu joined HDA Mentorship after dropping out of college with only 2–3 clients and no clear direction. Here's his story.</p>
+      </div>
+
+      <div class="story-slider fade-in">
+        <button class="slider-btn slider-btn--prev" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <div class="slider-track-wrap">
+          <div class="slider-track">
+            <div class="slider-slide">
+              <img src="images/priyangshu-cover.jpeg" alt="Priyanshu — from 2-3 clients to 20+ in 8 months" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-before.jpeg" alt="This was Priyanshu before joining HDA" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-not-lazy.jpeg" alt="He wasn't lazy" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-problem.jpeg" alt="The problem wasn't effort" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-solution.jpeg" alt="The solution — 4-Layer Coaching System" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-results.jpeg" alt="Results — 40 clients, 21 active" loading="lazy" />
+            </div>
+            <div class="slider-slide">
+              <img src="images/priyangshu-testimonial.jpeg" alt="Priyanshu's testimonial" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <button class="slider-btn slider-btn--next" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <div class="slider-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="apply">
+    <div class="container cta-inner">
+      <span class="section-label fade-in">Get Started</span>
+      <h2 class="fade-in">Ready to Invest<br/>in Your Career?</h2>
+      <p class="fade-in">Himanshu responds to every enquiry personally. Reach out and he'll get back within 24 hours.</p>
+      <button onclick="openApplyModal()" class="btn btn-primary btn-lg fade-in">Apply for Mentorship <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-row">
+            <img src="images/hda-logo.jpeg" alt="HDA" class="nav-logo-img">
+            <span class="nav-logo-sep"></span>
+            <span>Himanshu Deka</span>
+          </div>
+          <p>Men's Fitness Coach. Evidence-based coaching for fat loss, body recomposition, and performance. 350+ clients since 2019.</p>
+          <a href="https://instagram.com/himanshuhda" target="_blank" rel="noopener" class="footer-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/></svg>
+            @himanshuhda
+          </a>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="coaching.html">1:1 Coaching</a></li>
+            <li><a href="course.html">HDA Course</a></li>
+            <li><a href="mentorship.html">HDA Mentorship</a></li>
+            <li><a href="#" onclick="openApplyModal();return false;">Apply Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="mailto:himanshudeka76@gmail.com">Help &amp; Support</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Himanshu Deka Academy. All rights reserved.</span>
+        <span>India &nbsp;·&nbsp; Remote Coaching Worldwide</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

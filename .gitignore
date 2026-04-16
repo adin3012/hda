@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+
+# QA / demo scripts output
+qa_screenshots/
+*.png
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editor
+.vscode/
+.idea/
+
+# Local dev
+*.log
+node_modules/

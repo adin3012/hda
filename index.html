@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>HDA | Himanshu Deka | Men's Fitness Coach</title>
+  <meta name="description" content="Himanshu Deka, Men's Fitness Coach. Evidence-based 1:1 coaching for fat loss, body recomposition, and performance. 350+ clients transformed since 2019." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23fff'/><text y='.9em' font-size='60' font-family='system-ui' font-weight='900' fill='%230a0a0a' x='50%' text-anchor='middle' dominant-baseline='auto' dy='24'>HDA</text></svg>" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HDA | Himanshu Deka | Men's Fitness Coach" />
+  <meta property="og:description" content="Evidence-based 1:1 coaching for fat loss, body recomposition, and performance. 350+ clients transformed since 2019." />
+  <meta property="og:image" content="images/himanshu-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html">
+        <img src="images/hda-logo.jpeg" alt="HDA" class="nav-logo-img">
+        <span class="nav-logo-sep"></span>
+        <span>Himanshu Deka</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="coaching.html">Coaching</a></li>
+        <li><a href="course.html">Course</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="#" onclick="openApplyModal();return false;" class="nav-cta">Apply Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="course.html">Course</a>
+    <a href="mentorship.html">Mentorship</a>
+    <a href="#" onclick="openApplyModal();return false;" class="mm-cta">Apply Now</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-eyebrow fade-in">
+            <span class="dot"></span>
+            <span>350+ Clients &nbsp;·&nbsp; Since 2019</span>
+          </div>
+          <h1 class="fade-in fade-in-delay-1">
+            Still Doing the Same<br/>
+            Things and Getting<br/>
+            <span>Nowhere?</span>
+          </h1>
+          <p class="fade-in fade-in-delay-2">
+            You've tried every workout. Every diet. You know what to do, but knowing isn't the problem.
+            Consistency is. That's where a coach changes everything.
+          </p>
+          <div class="hero-actions fade-in fade-in-delay-3">
+            <a href="#" onclick="openApplyModal();return false;" class="btn btn-primary btn-lg">Work With Me</a>
+            <a href="#programs" class="btn btn-outline btn-lg">See Programs</a>
+          </div>
+        </div>
+        <div class="hero-visual fade-in fade-in-delay-2">
+          <div class="hero-photo">
+            <img src="images/img-2596.jpg" alt="Himanshu Deka" loading="eager" />
+          </div>
+          <div class="hero-badge">
+            <div class="num">350+</div>
+            <div class="label">Clients</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof-strip">
+    <div class="container">
+      <div class="proof-inner">
+        <div class="proof-item">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          </div>
+          <div class="text">
+            <div class="num stat-counter" data-count="350" data-start="100" data-suffix="+">100+</div>
+            <div class="label">Clients Transformed</div>
+          </div>
+        </div>
+        <div class="proof-item">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="text">
+            <div class="num stat-counter" data-count="2019" data-start="2025">2025</div>
+            <div class="label">Coaching Since</div>
+          </div>
+        </div>
+        <div class="proof-item">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6"/><path d="M9 11h6"/></svg>
+          </div>
+          <div class="text">
+            <div class="num stat-counter" data-count="100" data-start="50" data-suffix="%">50%</div>
+            <div class="label">Evidence-Based</div>
+          </div>
+        </div>
+        <div class="proof-item">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="text">
+            <div class="num stat-counter" data-count="3" data-start="1">1</div>
+            <div class="label">Programs Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN -->
+  <section class="pain-section">
+    <div class="container">
+      <div class="pain-grid">
+        <div class="pain-content fade-in">
+          <span class="section-label">Sound Familiar?</span>
+          <h2>The Problem Isn't<br/>Motivation. It's System.</h2>
+          <p>Most men who struggle aren't lazy. They have a strategy problem, not a willpower problem.</p>
+          <div class="pain-list">
+            <div class="pain-item">
+              <div class="pain-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+              <div>
+                <h4>You Know What to Do, But Don't Do It</h4>
+                <p>You've read enough to know the basics. The problem is execution, not information.</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+              <div>
+                <h4>Restarts Are Your Default Mode</h4>
+                <p>Monday starts, mid-week fades, weekend resets. Sound familiar?</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+              <div>
+                <h4>Random Workouts = Random Results</h4>
+                <p>No structure, no tracking, no accountability. Just going to the gym hoping for the best.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pain-cta fade-in">
+          <div class="eyebrow">The Truth</div>
+          <h3>You Don't Need Another Workout Video</h3>
+          <p>You need someone to build a system around YOUR life, hold you accountable, and adjust as you go.</p>
+          <div class="quote">
+            "If you keep doing what you've always done, you'll keep getting what you've always got."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution-section">
+    <div class="container">
+      <div class="solution-grid">
+        <div class="solution-img solution-img--hero fade-in">
+          <img src="images/himanshu-hero.png" alt="Himanshu Deka" loading="lazy" />
+        </div>
+        <div class="solution-content fade-in">
+          <span class="section-label">The Solution</span>
+          <h2>Evidence-Based Coaching<br/>That Actually Works</h2>
+          <p>Not a generic plan. A complete system designed for YOUR goals, YOUR schedule, and YOUR body.</p>
+          <div class="solution-points">
+            <div class="solution-point">
+              <div class="solution-point-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Personalized Training Program</h4>
+                <p>Built around your body, schedule, and training history.</p>
+              </div>
+            </div>
+            <div class="solution-point">
+              <div class="solution-point-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Nutrition That Fits Your Life</h4>
+                <p>No food shaming. No impossible restrictions. Just sustainable eating.</p>
+              </div>
+            </div>
+            <div class="solution-point">
+              <div class="solution-point-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Weekly Accountability</h4>
+                <p>Progress tracking, check-ins, and adjustments. Someone is watching.</p>
+              </div>
+            </div>
+            <div class="solution-point">
+              <div class="solution-point-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Direct WhatsApp Access</h4>
+                <p>Questions? Struggles? Just message. You're never alone.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCLUDED -->
+  <section class="included-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Everything Included</span>
+        <h2>What You Get With<br/>1:1 Coaching</h2>
+        <p>A complete system, not just a workout plan. Everything you need to transform.</p>
+      </div>
+      <div class="included-grid">
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3>Personalized Training</h3>
+          <p>Custom program designed for your goals, equipment, and schedule.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3>Custom Nutrition Plan</h3>
+          <p>Macros and guidelines tailored to your targets. No cookie-cutter diets.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.5 20.5L3 13l1.4-1.4 6.1 6.1 12.6-12.6L21.7 6.5 10.5 17.7z"/><path d="M8.5 8.5l4 4"/></svg>
+          </div>
+          <h3>Supplement Guidance</h3>
+          <p>Evidence-based recommendations only. No wasteful spending.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>Weekly Check-ins</h3>
+          <p>Structured reviews to track progress and keep you accountable.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3>Form Review</h3>
+          <p>Send training videos for technique feedback and injury prevention.</p>
+        </div>
+        <div class="included-card fade-in">
+          <div class="included-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>WhatsApp Support</h3>
+          <p>Direct access for questions and guidance. No waiting for emails.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Results</span>
+        <h2>Real Clients.<br/>Real Transformations.</h2>
+        <p>This is what consistent execution of the system produces.</p>
+      </div>
+      <div class="transform-grid fade-in">
+        <div class="transform-item" data-src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=900&q=90">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="Client" loading="lazy" />
+          <div class="transform-meta">
+            <strong>Adin</strong>
+            <span>12kg Lost</span>
+          </div>
+        </div>
+        <div class="transform-item" data-src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=900&q=90">
+          <img src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=400&q=80" alt="Client" loading="lazy" />
+          <div class="transform-meta">
+            <strong>Siddhartha</strong>
+            <span>15kg Lost</span>
+          </div>
+        </div>
+        <div class="transform-item" data-src="https://images.unsplash.com/photo-1598966739654-5e9a252d8c9b?w=900&q=90">
+          <img src="https://images.unsplash.com/photo-1598966739654-5e9a252d8c9b?w=400&q=80" alt="Client" loading="lazy" />
+          <div class="transform-meta">
+            <strong>Deva</strong>
+            <span>88kg → 78kg</span>
+          </div>
+        </div>
+        <div class="transform-item" data-src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=90">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Client" loading="lazy" />
+          <div class="transform-meta">
+            <strong>Nirmay</strong>
+            <span>1 Year Transformation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Client Stories</span>
+        <h2>What Clients Say</h2>
+        <p>Here's what the people I've coached have to say.</p>
+      </div>
+    </div>
+    <div class="testimonials-wrapper">
+      <div class="testimonials-scroll">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Working with Himanshu changed everything. Lost 12kg in 4 months while working 60+ hour weeks. The accountability made all the difference.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Arjun</div>
+              <div class="testimonial-role">Software Engineer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Finally something that actually stuck. No crazy restrictions, just a system that works. Best investment I've made in myself.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">P</div>
+            <div>
+              <div class="testimonial-name">Prakash</div>
+              <div class="testimonial-role">Marketing Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>I was skeptical about online coaching. Himanshu proved me wrong. The weekly check-ins kept me on track when nothing else did.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">N</div>
+            <div>
+              <div class="testimonial-name">Nirmay</div>
+              <div class="testimonial-role">Business Owner</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>As a doctor, I'm particular about who I trust with my health. Himanshu's scientific approach made him the obvious choice.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">D</div>
+            <div>
+              <div class="testimonial-name">Dr. Aryan</div>
+              <div class="testimonial-role">Medical Professional</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Lost 15kg without giving up my favorite foods. Himanshu taught me that fitness doesn't mean starving yourself.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">H</div>
+            <div>
+              <div class="testimonial-name">Harshit</div>
+              <div class="testimonial-role">Corporate Employee</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Working with Himanshu changed everything. Lost 12kg in 4 months while working 60+ hour weeks. The accountability made all the difference.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Arjun</div>
+              <div class="testimonial-role">Software Engineer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs-section" id="programs">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Your Options</span>
+        <h2>Three Ways to<br/>Work with Himanshu</h2>
+        <p>Choose the path that fits your goals and commitment level.</p>
+      </div>
+      <div class="prog-grid">
+        <div class="prog-card fade-in">
+          <div class="prog-card-img">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=85" alt="1:1 Coaching" loading="lazy" />
+          </div>
+          <div class="prog-card-body">
+            <span class="prog-card-tag">Most Popular</span>
+            <h3>1:1 Online Coaching</h3>
+            <p>Personalized training and nutrition for men serious about transforming their physique.</p>
+            <a href="coaching.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+        <div class="prog-card fade-in">
+          <div class="prog-card-img">
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=85" alt="HDA Course" loading="lazy" />
+          </div>
+          <div class="prog-card-body">
+            <span class="prog-card-tag">Self-Paced</span>
+            <h3>HDA Course</h3>
+            <p>Master the science and practice of fitness coaching. 7 modules with lifetime access.</p>
+            <a href="course.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+        <div class="prog-card fade-in">
+          <div class="prog-card-img">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=85" alt="HDA Mentorship" loading="lazy" />
+          </div>
+          <div class="prog-card-body">
+            <span class="prog-card-tag">Career</span>
+            <h3>HDA Mentorship</h3>
+            <p>Build a successful fitness coaching career with structured, personalized guidance.</p>
+            <a href="mentorship.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Why HDA</span>
+        <h2>Why Coaching Works</h2>
+        <p>The difference between knowing what to do and actually doing it.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Accountability</h3>
+          <p>Someone tracking your progress means you're less likely to skip workouts.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Time Efficiency</h3>
+          <p>No wasted time on exercises that don't work. Every rep has a purpose.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Customization</h3>
+          <p>Your plan fits YOUR life, not some ideal scenario that doesn't exist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container cta-inner">
+      <span class="section-label fade-in">Ready to Change?</span>
+      <h2 class="fade-in">Stop Restarting.<br/>Start Transforming.</h2>
+      <p class="fade-in">Your schedule is not an excuse. It's the starting point.</p>
+      <a href="#" onclick="openApplyModal();return false;" class="btn btn-primary btn-lg fade-in">Apply for Coaching <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-row">
+            <img src="images/hda-logo.jpeg" alt="HDA" class="nav-logo-img">
+            <span class="nav-logo-sep"></span>
+            <span>Himanshu Deka</span>
+          </div>
+          <p>Men's Fitness Coach. Evidence-based coaching for fat loss, body recomposition, and performance. 350+ clients since 2019.</p>
+          <a href="https://instagram.com/himanshuhda" target="_blank" rel="noopener" class="footer-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/></svg>
+            @himanshuhda
+          </a>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="coaching.html">1:1 Coaching</a></li>
+            <li><a href="course.html">HDA Course</a></li>
+            <li><a href="mentorship.html">HDA Mentorship</a></li>
+            <li><a href="#" onclick="openApplyModal();return false;">Apply Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="mailto:himanshudeka76@gmail.com">Help &amp; Support</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Himanshu Deka Academy. All rights reserved.</span>
+        <span>India &nbsp;·&nbsp; Remote Coaching Worldwide</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
