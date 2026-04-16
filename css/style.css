@@ -889,6 +889,13 @@ nav {
 .testimonial-name { font-weight: 700; font-size: 1rem; color: var(--text); }
 .testimonial-role { font-size: 0.8rem; color: var(--muted); }
 
+/* ---------- More from HDA grid ---------- */
+.hda-more-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 /* ---------- Programs ---------- */
 .programs-section { background: var(--bg-alt); }
 .prog-grid {
@@ -1118,7 +1125,13 @@ footer {
 /* ---------- Mobile (320px - 767px) ---------- */
 @media (max-width: 767px) {
   html { font-size: 15px; -webkit-text-size-adjust: 100%; }
-  
+
+  /* Global overflow protection */
+  h1, h2, h3, h4, p { overflow-wrap: break-word; word-break: break-word; }
+
+  /* More-from-HDA grid → single column */
+  .hda-more-grid { grid-template-columns: 1fr; }
+
   /* Base spacing */
   section { padding: 56px 0; }
   .container { width: 100%; padding: 0 16px; box-sizing: border-box; }
@@ -1551,13 +1564,16 @@ footer {
     padding: 70px 0 40px;
     min-height: auto;
   }
-  .page-hero h1 { 
-    font-size: clamp(1.6rem, 8vw, 2rem);
+  .page-hero h1 {
+    font-size: clamp(1.4rem, 6.5vw, 1.8rem);
     line-height: 1.15;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
-  .page-hero-sub { 
+  .page-hero-sub {
     font-size: 0.9rem;
     padding: 0 12px;
+    overflow-wrap: break-word;
   }
   .page-hero .hero-actions { 
     gap: 12px;

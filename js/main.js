@@ -355,9 +355,9 @@ function submitLeadToSheets(data) {
         <h2 style="font-size:1.5rem;margin-bottom:8px;">Before you explore —</h2>
         <p class="modal-sub">Drop your details and Himanshu will personally reach out to answer any questions.</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px;">
-          <input type="text"  id="lpName"     placeholder="Your name *"                style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;" />
-          <input type="email" id="lpEmail"    placeholder="Email address *"             style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;" />
-          <input type="tel"   id="lpWhatsApp" placeholder="WhatsApp number (optional)"  style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;" />
+          <input type="text"  id="lpName"     placeholder="Your name *"                style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;width:100%;box-sizing:border-box;" />
+          <input type="email" id="lpEmail"    placeholder="Email address *"             style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;width:100%;box-sizing:border-box;" />
+          <input type="tel"   id="lpWhatsApp" placeholder="WhatsApp number (optional)"  style="padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;font-family:inherit;width:100%;box-sizing:border-box;" />
           <button id="lpSubmitBtn" onclick="handleLeadPopupSubmit()" class="btn btn-primary" style="justify-content:center;margin-top:4px;">Get in Touch</button>
           <button onclick="closeLeadPopup(true)" style="background:none;border:none;color:var(--muted);font-size:0.82rem;cursor:pointer;font-family:inherit;padding:4px;">No thanks, I'll just browse</button>
         </div>
