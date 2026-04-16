@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDA Platform Architecture</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0c0d11;
+    --surface: #13151c;
+    --surface2: #1a1d28;
+    --surface3: #21263a;
+    --border: #252a3a;
+    --border2: #2e3450;
+    --text: #e2e6f0;
+    --muted: #5a6180;
+    --muted2: #7a84a0;
+    --accent: #f97316;
+    --accent-dim: rgba(249,115,22,0.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.12);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --yellow: #fbbf24;
+    --yellow-dim: rgba(251,191,36,0.12);
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.12);
+    --red: #f87171;
+    --white: #ffffff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* PAGE */
+  .page { max-width: 1440px; margin: 0 auto; padding: 0 48px 80px; }
+
+  /* COVER */
+  .cover {
+    padding: 56px 48px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 0;
+  }
+  .cover-inner { max-width: 1344px; margin: 0 auto; }
+  .cover-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .cover-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .cover-title span { color: var(--accent); }
+  .cover-sub {
+    color: var(--muted2);
+    font-size: 14px;
+    max-width: 640px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .meta-item { }
+  .meta-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+  .meta-value { font-size: 13px; font-weight: 600; color: var(--text); }
+
+  /* PHASE BADGES */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .badge-live { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .badge-p2 { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(249,115,22,0.25); }
+  .badge-p3 { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+  .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 1.4s ease infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+  /* SECTION HEADERS */
+  .sec-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 40px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .sec-num {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .sec-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; }
+  .sec-sub { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+  /* GRIDS */
+  .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .g5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; }
+  .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card.t-green { border-top: 2px solid var(--green); }
+  .card.t-blue { border-top: 2px solid var(--blue); }
+  .card.t-orange { border-top: 2px solid var(--accent); }
+  .card.t-purple { border-top: 2px solid var(--purple); }
+  .card.t-yellow { border-top: 2px solid var(--yellow); }
+  .card.t-teal { border-top: 2px solid var(--teal); }
+  .card.l-orange { border-left: 3px solid var(--accent); background: var(--surface2); }
+  .c-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+  .c-sub { font-size: 11px; color: var(--muted2); line-height: 1.5; margin-bottom: 10px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .tag {
+    padding: 2px 7px; border-radius: 3px;
+    font-size: 10px; font-weight: 500;
+    background: var(--surface2); color: var(--muted2);
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag.g { background: var(--green-dim); color: var(--green); border-color: rgba(34,197,94,0.2); }
+  .tag.o { background: var(--accent-dim); color: var(--accent); border-color: rgba(249,115,22,0.2); }
+  .tag.p { background: var(--purple-dim); color: var(--purple); border-color: rgba(167,139,250,0.2); }
+  .tag.y { background: var(--yellow-dim); color: var(--yellow); border-color: rgba(251,191,36,0.2); }
+  .tag.t { background: var(--teal-dim); color: var(--teal); border-color: rgba(45,212,191,0.2); }
+  .tag.b { background: var(--blue-dim); color: var(--blue); border-color: rgba(59,130,246,0.2); }
+
+  /* ── ARCHITECTURE FLOW DIAGRAM ── */
+  .arch-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Layer rows */
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .arch-row + .arch-row {
+    margin-top: 0;
+  }
+
+  /* connector between rows */
+  .arch-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    position: relative;
+  }
+  .arch-connector::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 1px; height: 100%;
+    background: var(--border2);
+    transform: translateX(-50%);
+  }
+  .arch-connector-arrow {
+    width: 8px; height: 8px;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: rotate(45deg);
+    background: var(--surface);
+    position: relative;
+    z-index: 1;
+    margin-top: 8px;
+  }
+  .arch-connector.bidirectional::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 8px; height: 8px;
+    border-left: 1.5px solid var(--muted);
+    border-top: 1.5px solid var(--muted);
+    transform: translateX(-50%) rotate(45deg);
+    background: var(--surface);
+  }
+
+  /* layer label */
+  .arch-layer-label {
+    position: absolute;
+    left: 0;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    user-select: none;
+  }
+
+  /* boxes */
+  .arch-box {
+    border-radius: 8px;
+    border: 1px solid var(--border2);
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 130px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .arch-box .ab-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .arch-box .ab-sub {
+    font-size: 10px;
+    color: var(--muted2);
+    line-height: 1.4;
+  }
+  .arch-box.ab-client { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.3); }
+  .arch-box.ab-front { background: rgba(59,130,246,0.06); border-color: rgba(59,130,246,0.25); }
+  .arch-box.ab-api { background: rgba(249,115,22,0.07); border-color: rgba(249,115,22,0.28); }
+  .arch-box.ab-db { background: rgba(167,139,250,0.07); border-color: rgba(167,139,250,0.28); }
+  .arch-box.ab-ext { background: rgba(45,212,191,0.06); border-color: rgba(45,212,191,0.22); }
+
+  /* horizontal connector between boxes */
+  .h-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border2);
+    position: relative;
+    max-width: 40px;
+    min-width: 16px;
+  }
+  .h-line::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: -3px;
+    width: 6px; height: 6px;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: rotate(-45deg);
+  }
+
+  /* wide arch connector spanning multiple cols */
+  .arch-fan {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    position: relative;
+    margin: 0 60px;
+  }
+  .arch-fan::before {
+    content:'';
+    position: absolute;
+    left: 10%; right: 10%;
+    top: 0; height: 1px;
+    background: var(--border2);
+  }
+  .arch-fan-line {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--border2);
+  }
+
+  /* DB SCHEMA */
+  .schema-wrap {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+  }
+  .schema-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .schema-head {
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .schema-head-title { font-size: 12px; font-weight: 700; color: var(--white); font-family: 'JetBrains Mono', monospace; }
+  .schema-head-sub { font-size: 10px; color: var(--muted); margin-left: auto; }
+  .schema-body { padding: 4px 0; }
+  .schema-row {
+    display: grid;
+    grid-template-columns: 1fr 90px 36px;
+    padding: 5px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    align-items: center;
+    gap: 8px;
+  }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-col { font-size: 11px; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+  .schema-type { font-size: 10px; color: var(--purple); font-family: 'JetBrains Mono', monospace; }
+  .schema-pk { font-size: 9px; font-weight: 700; color: var(--yellow); font-family: 'JetBrains Mono', monospace; }
+  .schema-fk { font-size: 9px; font-weight: 700; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+
+  /* JOURNEY */
+  .journey {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .j-step {
+    padding: 16px 12px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .j-step:last-child { border-right: none; }
+  .j-step:nth-child(even) { background: var(--surface2); }
+  .j-num { font-size: 10px; font-weight: 700; color: var(--muted); margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; }
+  .j-title { font-size: 11px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .j-desc { font-size: 10px; color: var(--muted2); line-height: 1.4; }
+
+  /* COACHING FLOW */
+  .cf-row {
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .cf-step {
+    padding: 14px 12px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .cf-step:last-child { border-right: none; }
+  .cf-step:nth-child(even) { background: var(--surface2); }
+  .cf-num { font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; }
+  .cf-title { font-size: 11px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+  .cf-desc { font-size: 10px; color: var(--muted2); line-height: 1.4; }
+
+  /* COST TABLE */
+  .cost-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cost-header {
+    padding: 18px 24px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cost-header-title { font-size: 14px; font-weight: 700; color: var(--white); }
+  .cost-header-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  table.cost { width: 100%; border-collapse: collapse; }
+  table.cost th {
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  table.cost td {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+    font-size: 12px;
+  }
+  table.cost tr:last-child td { border-bottom: none; }
+  table.cost .amt { color: var(--yellow); font-weight: 600; font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+  table.cost .note-sm { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+  table.cost .group-row td { background: rgba(255,255,255,0.02); }
+  table.cost .group-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--muted);
+    padding: 8px 20px 4px;
+    border-bottom: none;
+  }
+  table.cost .total-row td {
+    background: rgba(249,115,22,0.06);
+    border-top: 1px solid rgba(249,115,22,0.2);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  table.cost .total-row .amt { color: var(--accent); font-size: 15px; }
+
+  /* PROCEED SECTION */
+  .proceed-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .proceed-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .proceed-phase {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .proceed-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .proceed-items { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .proceed-item { display: flex; gap: 10px; align-items: flex-start; }
+  .pi-num {
+    width: 18px; height: 18px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pi-text { font-size: 11px; color: var(--muted2); line-height: 1.5; }
+  .pi-text strong { color: var(--text); }
+
+  /* CHECKLIST */
+  .checklist {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+  }
+  .check-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .check-n {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; flex-shrink: 0;
+  }
+  .check-text { font-size: 11px; color: var(--muted2); line-height: 1.5; }
+  .check-text strong { color: var(--text); }
+
+  /* REVENUE */
+  .rev-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .rev-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .rev-amt { font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .rev-label { font-size: 12px; font-weight: 600; color: var(--white); margin-top: 6px; }
+  .rev-sub { font-size: 11px; color: var(--muted2); margin-top: 3px; line-height: 1.4; }
+
+  /* TECH STACK */
+  .stack-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .stack-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .stack-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+
+  /* ROADMAP */
+  .roadmap-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+  /* FOOTNOTE */
+  .footnote {
+    margin-top: 48px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .footnote strong { color: var(--text); }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--surface3);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #0c0d11; }
+    .page { padding: 0 32px 60px; }
+    .cover { padding: 40px 32px 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-label">Technical Architecture Document</div>
+    <div class="cover-title">Himanshu Deka Academy<br><span>Platform Architecture &amp; Build Roadmap</span></div>
+    <div class="cover-sub">Full-stack architecture for the HDA education platform including course delivery, 1:1 coaching sessions, payment processing, and infrastructure. Estimated total build cost: INR 1.5L – 2.5L.</div>
+    <div class="cover-meta">
+      <div class="meta-item">
+        <div class="meta-label">Current Phase</div>
+        <div class="meta-value"><span class="badge badge-live"><span class="live-dot"></span>Phase 1 — Static Site</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Target Build Cost</div>
+        <div class="meta-value" style="color:var(--yellow); font-family:'JetBrains Mono',monospace;">INR 1,50,000 – 2,50,000</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Build Timeline</div>
+        <div class="meta-value">3 – 4 Months</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Document Date</div>
+        <div class="meta-value">April 2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════
+     SECTION 01 — SYSTEM ARCHITECTURE DIAGRAM
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--blue-dim);color:var(--blue);">01</div>
+  <div class="sec-title" style="color:var(--blue);">System Architecture Diagram</div>
+  <div class="sec-sub">End-to-end data and request flow</div>
+</div>
+
+<div class="arch-diagram">
+
+  <!-- ROW: Client -->
+  <div style="text-align:center;margin-bottom:4px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Client Layer</div>
+    <div style="display:flex;justify-content:center;gap:16px;">
+      <div class="arch-box ab-client" style="min-width:150px;">
+        <div class="ab-title">Web Browser</div>
+        <div class="ab-sub">Student / Admin<br>Chrome, Safari, Firefox</div>
+      </div>
+      <div class="arch-box ab-client" style="min-width:150px;">
+        <div class="ab-title">Mobile Browser</div>
+        <div class="ab-sub">Responsive PWA<br>iOS / Android</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="arch-connector"><div class="arch-connector-arrow"></div></div>
+
+  <!-- ROW: Frontend -->
+  <div style="text-align:center;margin-bottom:4px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Frontend Layer &mdash; Vercel (Next.js)</div>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <div class="arch-box ab-front" style="min-width:140px;">
+        <div class="ab-title">Marketing Site</div>
+        <div class="ab-sub">SSR / SEO<br>index, coaching, education</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-front" style="min-width:140px;">
+        <div class="ab-title">Student Dashboard</div>
+        <div class="ab-sub">Courses, progress<br>session history</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-front" style="min-width:140px;">
+        <div class="ab-title">Course Player</div>
+        <div class="ab-sub">Video lessons<br>quizzes, notes</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-front" style="min-width:140px;">
+        <div class="ab-title">Admin Panel</div>
+        <div class="ab-sub">Manage courses<br>students, sessions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR: bidirectional (HTTPS / REST) -->
+  <div class="arch-connector" style="position:relative;">
+    <div class="arch-connector-arrow"></div>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--surface);padding:2px 8px;font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;border:1px solid var(--border2);border-radius:4px;white-space:nowrap;z-index:2;">HTTPS / REST JSON</div>
+  </div>
+
+  <!-- ROW: API Gateway + Services -->
+  <div style="text-align:center;margin-bottom:4px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Backend API Layer &mdash; Node.js / Express (Railway)</div>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <div class="arch-box ab-api" style="min-width:130px;">
+        <div class="ab-title">Auth Service</div>
+        <div class="ab-sub">JWT, OAuth<br>Roles: student/admin</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-api" style="min-width:130px;">
+        <div class="ab-title">Course Service</div>
+        <div class="ab-sub">CRUD, enrolment<br>progress, certificates</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-api" style="min-width:130px;">
+        <div class="ab-title">Coaching Service</div>
+        <div class="ab-sub">Slot booking<br>session notes</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-api" style="min-width:130px;">
+        <div class="ab-title">Payment Service</div>
+        <div class="ab-sub">Razorpay orders<br>webhooks, invoices</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-api" style="min-width:130px;">
+        <div class="ab-title">Notification Service</div>
+        <div class="ab-sub">Email, WhatsApp<br>session reminders</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="arch-connector"><div class="arch-connector-arrow"></div></div>
+
+  <!-- ROW: Data -->
+  <div style="text-align:center;margin-bottom:4px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Data Layer</div>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <div class="arch-box ab-db" style="min-width:160px;">
+        <div class="ab-title">PostgreSQL</div>
+        <div class="ab-sub">Supabase managed<br>Users, courses, sessions, payments</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-db" style="min-width:140px;">
+        <div class="ab-title">Redis Cache</div>
+        <div class="ab-sub">Upstash<br>Sessions, rate limits</div>
+      </div>
+      <div class="h-line"></div>
+      <div class="arch-box ab-db" style="min-width:160px;">
+        <div class="ab-title">Object Storage</div>
+        <div class="ab-sub">Cloudflare R2<br>Videos, PDFs, certificates</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="arch-connector"><div class="arch-connector-arrow"></div></div>
+
+  <!-- ROW: External -->
+  <div style="text-align:center;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">External Services / Third-Party APIs</div>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">Razorpay</div>
+        <div class="ab-sub">Payments<br>2% per txn</div>
+      </div>
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">Zoom API</div>
+        <div class="ab-sub">1:1 coaching<br>meeting links</div>
+      </div>
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">BunnyCDN</div>
+        <div class="ab-sub">Video streaming<br>HLS delivery</div>
+      </div>
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">Resend</div>
+        <div class="ab-sub">Transactional<br>email delivery</div>
+      </div>
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">WhatsApp API</div>
+        <div class="ab-sub">Session reminders<br>lead nurture</div>
+      </div>
+      <div class="arch-box ab-ext" style="min-width:120px;">
+        <div class="ab-title">Cloudflare</div>
+        <div class="ab-sub">DNS, CDN<br>DDoS protection</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 02 — CURRENT STATE (PHASE 1)
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--green-dim);color:var(--green);">02</div>
+  <div class="sec-title" style="color:var(--green);">Current State — Phase 1 (Live)</div>
+  <div class="sec-sub">Static website, zero infra cost</div>
+</div>
+
+<div class="g4">
+  <div class="card t-green">
+    <div class="c-title">Static Website</div>
+    <div class="c-sub">index.html, coaching.html, education.html. Vanilla HTML / CSS / JS. No backend dependency. Hosted on GitHub Pages or Netlify.</div>
+    <div class="tags"><span class="tag g">Live</span><span class="tag">GitHub Pages</span><span class="tag">Netlify</span></div>
+  </div>
+  <div class="card t-green">
+    <div class="c-title">EmailJS</div>
+    <div class="c-sub">Contact form sends emails directly from browser. No server needed. Free tier handles 200 emails per month.</div>
+    <div class="tags"><span class="tag g">Live</span><span class="tag y">Free</span></div>
+  </div>
+  <div class="card t-green">
+    <div class="c-title">WhatsApp Lead Capture</div>
+    <div class="c-sub">Apply modal opens a wa.me deep link with a pre-filled message. Zero backend cost. Leads managed manually in a spreadsheet.</div>
+    <div class="tags"><span class="tag g">Live</span><span class="tag">wa.me link</span></div>
+  </div>
+  <div class="card t-green">
+    <div class="c-title">Calendly + Google Form</div>
+    <div class="c-sub">1:1 booking via embedded Calendly. Structured intake via Google Form. Both free. One pending fix: replace YOUR_GOOGLE_FORM_LINK placeholder in js/main.js.</div>
+    <div class="tags"><span class="tag g">Live</span><span class="tag y">INR 0/mo</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 03 — FRONTEND LAYER
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--blue-dim);color:var(--blue);">03</div>
+  <div class="sec-title" style="color:var(--blue);">Frontend Layer — Phase 2</div>
+  <div class="sec-sub">Next.js 14, Vercel hosting</div>
+</div>
+
+<div class="g4">
+  <div class="card t-blue">
+    <div class="c-title">Marketing Site</div>
+    <div class="c-sub">Static pages become Next.js for SEO, blog CMS, and testimonials. Server-side rendered for Google indexing.</div>
+    <div class="tags"><span class="tag o">Phase 2</span><span class="tag b">Next.js</span><span class="tag">Vercel</span><span class="tag y">INR 0–1,600/mo</span></div>
+  </div>
+  <div class="card t-blue">
+    <div class="c-title">Student Dashboard</div>
+    <div class="c-sub">Post-login view: enrolled courses, progress bars, session history, certificates, upcoming coaching calls.</div>
+    <div class="tags"><span class="tag o">Phase 2</span><span class="tag b">React</span><span class="tag">JWT</span></div>
+  </div>
+  <div class="card t-blue">
+    <div class="c-title">Course Player</div>
+    <div class="c-sub">Video lessons with chapter navigation, quizzes, PDF downloads, watch-time tracking, notes. Signed URL access — no public video links.</div>
+    <div class="tags"><span class="tag o">Phase 2</span><span class="tag t">BunnyCDN</span><span class="tag">Signed URLs</span></div>
+  </div>
+  <div class="card t-blue">
+    <div class="c-title">1:1 Session UI</div>
+    <div class="c-sub">Book available coaching slots, fill pre-session intake form, view auto-generated Zoom link, access post-session notes.</div>
+    <div class="tags"><span class="tag o">Phase 2</span><span class="tag">Zoom SDK</span><span class="tag">Calendly</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 04 — BACKEND API
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:rgba(249,115,22,0.12);color:var(--accent);">04</div>
+  <div class="sec-title" style="color:var(--accent);">Backend API — Phase 2</div>
+  <div class="sec-sub">Node.js / Express on Railway</div>
+</div>
+
+<div class="g5">
+  <div class="card l-orange">
+    <div class="c-title">Auth Service</div>
+    <div class="c-sub">Register, login, Google OAuth, password reset, JWT access + refresh tokens. Role-based: student / admin.</div>
+    <div class="tags"><span class="tag">JWT</span><span class="tag">OAuth2</span><span class="tag">bcrypt</span></div>
+  </div>
+  <div class="card l-orange">
+    <div class="c-title">Course Service</div>
+    <div class="c-sub">CRUD for courses, modules, lessons. Enrolment. Progress tracking. Quiz engine. PDF certificate generation on completion.</div>
+    <div class="tags"><span class="tag">REST</span><span class="tag">Prisma</span></div>
+  </div>
+  <div class="card l-orange">
+    <div class="c-title">Coaching Service</div>
+    <div class="c-sub">Slot availability, booking creation, session notes, intake form storage, Zoom link auto-generation, rescheduling.</div>
+    <div class="tags"><span class="tag">Calendly API</span><span class="tag">Zoom API</span></div>
+  </div>
+  <div class="card l-orange">
+    <div class="c-title">Payment Service</div>
+    <div class="c-sub">Razorpay order creation, webhook signature verification, refund handling, auto invoice PDF generation via Resend.</div>
+    <div class="tags"><span class="tag">Razorpay</span><span class="tag">Webhooks</span></div>
+  </div>
+  <div class="card l-orange">
+    <div class="c-title">Notification Service</div>
+    <div class="c-sub">Email confirmations, WhatsApp session reminders 24h and 1h before, course progress nudges, certificate delivery.</div>
+    <div class="tags"><span class="tag">Resend</span><span class="tag">WABA</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 05 — DATABASE SCHEMA
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--purple-dim);color:var(--purple);">05</div>
+  <div class="sec-title" style="color:var(--purple);">Database Schema — PostgreSQL (Supabase)</div>
+  <div class="sec-sub">Core tables · PK = primary key · FK = foreign key</div>
+</div>
+
+<div class="schema-wrap">
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">users</div>
+      <div class="schema-head-sub">Identity</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">name</span><span class="schema-type">varchar(100)</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">email</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">password_hash</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">role</span><span class="schema-type">enum</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">phone</span><span class="schema-type">varchar(20)</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">country</span><span class="schema-type">varchar(5)</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">created_at</span><span class="schema-type">timestamp</span><span></span></div>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">courses</div>
+      <div class="schema-head-sub">Catalogue</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">title</span><span class="schema-type">varchar(200)</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">slug</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">description</span><span class="schema-type">text</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">price_inr</span><span class="schema-type">numeric(10,2)</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">duration_weeks</span><span class="schema-type">int</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">level</span><span class="schema-type">enum</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">is_active</span><span class="schema-type">boolean</span><span></span></div>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">modules / lessons</div>
+      <div class="schema-head-sub">Content hierarchy</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">module.id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">module.course_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">module.title</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">lesson.id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">lesson.module_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">lesson.video_url</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">lesson.duration_sec</span><span class="schema-type">int</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">lesson.is_preview</span><span class="schema-type">boolean</span><span></span></div>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">enrollments / progress</div>
+      <div class="schema-head-sub">Student tracking</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">enrollment.id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">enrollment.user_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">enrollment.course_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">enrollment.expires_at</span><span class="schema-type">timestamp</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">progress.lesson_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">progress.completed</span><span class="schema-type">boolean</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">progress.watch_pct</span><span class="schema-type">int</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">progress.last_watched</span><span class="schema-type">timestamp</span><span></span></div>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">coaching_sessions</div>
+      <div class="schema-head-sub">1:1 bookings</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">student_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">coach_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">scheduled_at</span><span class="schema-type">timestamp</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">duration_min</span><span class="schema-type">int</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">status</span><span class="schema-type">enum</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">meet_link</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">payment_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-head">
+      <div class="schema-head-title">payments / certificates</div>
+      <div class="schema-head-sub">Transactions + proof</div>
+    </div>
+    <div class="schema-body">
+      <div class="schema-row"><span class="schema-col">payment.id</span><span class="schema-type">uuid</span><span class="schema-pk">PK</span></div>
+      <div class="schema-row"><span class="schema-col">payment.user_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">payment.amount</span><span class="schema-type">numeric</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">payment.razorpay_id</span><span class="schema-type">varchar</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">payment.status</span><span class="schema-type">enum</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">cert.enrollment_id</span><span class="schema-type">uuid</span><span class="schema-fk">FK</span></div>
+      <div class="schema-row"><span class="schema-col">cert.issued_at</span><span class="schema-type">timestamp</span><span></span></div>
+      <div class="schema-row"><span class="schema-col">cert.pdf_url</span><span class="schema-type">varchar</span><span></span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 06 — STUDENT JOURNEY
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--yellow-dim);color:var(--yellow);">06</div>
+  <div class="sec-title" style="color:var(--yellow);">Student Learning Journey</div>
+  <div class="sec-sub">End-to-end flow from discovery to certification</div>
+</div>
+
+<div class="journey">
+  <div class="j-step">
+    <div class="j-num">01</div>
+    <div class="j-title">Discovery</div>
+    <div class="j-desc">Instagram, Google, referral. Lands on marketing site.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">02</div>
+    <div class="j-title">Registration</div>
+    <div class="j-desc">Signs up via email or Google OAuth. Intake questionnaire.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">03</div>
+    <div class="j-title">Enrolment</div>
+    <div class="j-desc">Selects course or coaching plan. Pays via Razorpay. Invoice emailed.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">04</div>
+    <div class="j-title">Self-Study</div>
+    <div class="j-desc">Watches video lessons. Completes quizzes. Tracks progress.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">05</div>
+    <div class="j-title">1:1 Coaching</div>
+    <div class="j-desc">Books live session. Joins Zoom. Coach reviews intake and gives plan.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">06</div>
+    <div class="j-title">Certification</div>
+    <div class="j-desc">Completes all modules. PDF certificate auto-generated and emailed.</div>
+  </div>
+  <div class="j-step">
+    <div class="j-num">07</div>
+    <div class="j-title">Community</div>
+    <div class="j-desc">Joins WhatsApp alumni group. Referral credit program.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 07 — COACHING FLOW
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--teal-dim);color:var(--teal);">07</div>
+  <div class="sec-title" style="color:var(--teal);">1:1 Coaching Session Flow</div>
+  <div class="sec-sub">Booking to follow-up</div>
+</div>
+
+<div class="cf-row">
+  <div class="cf-step">
+    <div class="cf-num">01</div>
+    <div class="cf-title">Student Books</div>
+    <div class="cf-desc">Picks available slot from coach calendar</div>
+  </div>
+  <div class="cf-step">
+    <div class="cf-num">02</div>
+    <div class="cf-title">Payment</div>
+    <div class="cf-desc">Razorpay processes per-session or bundle fee</div>
+  </div>
+  <div class="cf-step">
+    <div class="cf-num">03</div>
+    <div class="cf-title">Intake Form</div>
+    <div class="cf-desc">Pre-session questionnaire: goals, current status</div>
+  </div>
+  <div class="cf-step">
+    <div class="cf-num">04</div>
+    <div class="cf-title">Reminders</div>
+    <div class="cf-desc">WhatsApp + email at 24h and 1h before session</div>
+  </div>
+  <div class="cf-step">
+    <div class="cf-num">05</div>
+    <div class="cf-title">Live Session</div>
+    <div class="cf-desc">Coach joins Zoom. Reviews form. Real-time guidance.</div>
+  </div>
+  <div class="cf-step">
+    <div class="cf-num">06</div>
+    <div class="cf-title">Follow-up</div>
+    <div class="cf-desc">Session notes + action plan emailed. Progress logged.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 08 — BUILD COST BREAKDOWN
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--yellow-dim);color:var(--yellow);">08</div>
+  <div class="sec-title" style="color:var(--yellow);">Build Cost Breakdown — One-Time Development</div>
+  <div class="sec-sub">Target: INR 1,50,000 – 2,50,000 total (build + Year 1 infra)</div>
+</div>
+
+<div class="cost-wrap">
+  <div class="cost-header">
+    <div>
+      <div class="cost-header-title">One-Time Development Cost — Freelancer Route</div>
+      <div class="cost-header-sub">Single full-stack freelancer (Hyderabad / Bangalore / remote India market) · 3–4 month timeline</div>
+    </div>
+    <span class="badge badge-p2">Phase 2 Build</span>
+  </div>
+  <table class="cost">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Scope</th>
+        <th>Low Estimate</th>
+        <th>High Estimate</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5" class="group-label">Design</td></tr>
+      <tr>
+        <td><strong>UI/UX Design</strong><div class="note-sm">All screens: auth, dashboard, player, admin</div></td>
+        <td>Figma, 8–12 screens</td>
+        <td class="amt">INR 12,000</td>
+        <td class="amt">INR 20,000</td>
+        <td>Can reuse existing site's style. Keep scope tight.</td>
+      </tr>
+
+      <tr><td colspan="5" class="group-label">Frontend Development</td></tr>
+      <tr>
+        <td><strong>Next.js Marketing Site</strong><div class="note-sm">Convert existing HTML pages to Next.js</div></td>
+        <td>3 pages + blog</td>
+        <td class="amt">INR 15,000</td>
+        <td class="amt">INR 25,000</td>
+        <td>Existing design is done. Mostly migration work.</td>
+      </tr>
+      <tr>
+        <td><strong>Student Dashboard + Auth UI</strong><div class="note-sm">Login, register, profile, progress view</div></td>
+        <td>6–8 screens</td>
+        <td class="amt">INR 18,000</td>
+        <td class="amt">INR 28,000</td>
+        <td>Zustand for state, React Query for data fetching.</td>
+      </tr>
+      <tr>
+        <td><strong>Course Player</strong><div class="note-sm">Video player, chapters, quizzes, notes</div></td>
+        <td>1 complex page</td>
+        <td class="amt">INR 12,000</td>
+        <td class="amt">INR 20,000</td>
+        <td>Use Video.js or Plyr. BunnyCDN HLS stream.</td>
+      </tr>
+      <tr>
+        <td><strong>Basic Admin Panel</strong><div class="note-sm">Manage courses, students, bookings</div></td>
+        <td>4–6 screens</td>
+        <td class="amt">INR 10,000</td>
+        <td class="amt">INR 18,000</td>
+        <td>Table views + forms only. No complex analytics.</td>
+      </tr>
+
+      <tr><td colspan="5" class="group-label">Backend Development</td></tr>
+      <tr>
+        <td><strong>Auth Service</strong><div class="note-sm">JWT, Google OAuth, role-based access</div></td>
+        <td>API endpoints</td>
+        <td class="amt">INR 10,000</td>
+        <td class="amt">INR 15,000</td>
+        <td>Use Passport.js. Supabase Auth is an option to cut cost.</td>
+      </tr>
+      <tr>
+        <td><strong>Course + Enrolment Service</strong><div class="note-sm">CRUD, progress tracking, certificates</div></td>
+        <td>Core API</td>
+        <td class="amt">INR 15,000</td>
+        <td class="amt">INR 22,000</td>
+        <td>Prisma ORM on Supabase PostgreSQL.</td>
+      </tr>
+      <tr>
+        <td><strong>Coaching Booking Service</strong><div class="note-sm">Slots, intake forms, Zoom link generation</div></td>
+        <td>Booking API</td>
+        <td class="amt">INR 10,000</td>
+        <td class="amt">INR 15,000</td>
+        <td>Integrate Calendly API or build simple slot system.</td>
+      </tr>
+      <tr>
+        <td><strong>Payment Integration</strong><div class="note-sm">Razorpay orders, webhooks, invoices</div></td>
+        <td>Payment API</td>
+        <td class="amt">INR 8,000</td>
+        <td class="amt">INR 12,000</td>
+        <td>Webhook verification is critical. Test thoroughly.</td>
+      </tr>
+      <tr>
+        <td><strong>Notification Service</strong><div class="note-sm">Email via Resend, WhatsApp reminders</div></td>
+        <td>Background jobs</td>
+        <td class="amt">INR 5,000</td>
+        <td class="amt">INR 8,000</td>
+        <td>Bull queue on Redis. Simple scheduled jobs.</td>
+      </tr>
+
+      <tr><td colspan="5" class="group-label">Infrastructure and DevOps</td></tr>
+      <tr>
+        <td><strong>Database Setup</strong><div class="note-sm">Supabase schema, migrations, seed data</div></td>
+        <td>DB config</td>
+        <td class="amt">INR 5,000</td>
+        <td class="amt">INR 8,000</td>
+        <td>Supabase free tier is sufficient for Phase 2 launch.</td>
+      </tr>
+      <tr>
+        <td><strong>Storage + Video CDN Setup</strong><div class="note-sm">Cloudflare R2 bucket, BunnyCDN stream zone</div></td>
+        <td>Storage config</td>
+        <td class="amt">INR 5,000</td>
+        <td class="amt">INR 8,000</td>
+        <td>R2 + BunnyCDN is far cheaper than Mux or Wistia.</td>
+      </tr>
+      <tr>
+        <td><strong>Deployment + CI/CD</strong><div class="note-sm">Vercel (frontend), Railway (API), GitHub Actions</div></td>
+        <td>DevOps setup</td>
+        <td class="amt">INR 5,000</td>
+        <td class="amt">INR 8,000</td>
+        <td>One-time. Auto-deploys on every git push after setup.</td>
+      </tr>
+      <tr>
+        <td><strong>Domain + SSL</strong><div class="note-sm">hdacoaching.in or himanshudeka.academy</div></td>
+        <td>Annual</td>
+        <td class="amt">INR 900</td>
+        <td class="amt">INR 1,500</td>
+        <td>SSL free via Cloudflare. Domain via GoDaddy / Namecheap.</td>
+      </tr>
+
+      <tr><td colspan="5" class="group-label">Quality Assurance</td></tr>
+      <tr>
+        <td><strong>Testing + Bug Fixes</strong><div class="note-sm">Functional testing, payment flow, video playback</div></td>
+        <td>QA round</td>
+        <td class="amt">INR 8,000</td>
+        <td class="amt">INR 12,000</td>
+        <td>Focus on payment and video access — highest risk areas.</td>
+      </tr>
+
+      <tr class="total-row">
+        <td colspan="2"><strong>Total One-Time Build Cost</strong></td>
+        <td class="amt">INR 1,38,900</td>
+        <td class="amt">INR 2,20,500</td>
+        <td>Freelancer, 3–4 months. Scope kept lean for Phase 2.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MONTHLY INFRA COST -->
+<div class="cost-wrap" style="margin-top:16px;">
+  <div class="cost-header">
+    <div>
+      <div class="cost-header-title">Monthly Infrastructure Cost</div>
+      <div class="cost-header-sub">Phase 2 (~50–100 students) · All prices in INR per month</div>
+    </div>
+    <span class="badge badge-p2">Recurring</span>
+  </div>
+  <table class="cost">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Provider</th>
+        <th>Monthly Cost</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frontend Hosting</strong></td>
+        <td>Vercel (Hobby / Pro)</td>
+        <td class="amt">INR 0 – 1,600</td>
+        <td>Free tier covers most traffic at this scale.</td>
+      </tr>
+      <tr>
+        <td><strong>Backend API</strong></td>
+        <td>Railway Starter</td>
+        <td class="amt">INR 800 – 2,500</td>
+        <td>Pay-per-use. Scales with requests.</td>
+      </tr>
+      <tr>
+        <td><strong>PostgreSQL Database</strong></td>
+        <td>Supabase Free / Pro</td>
+        <td class="amt">INR 0 – 2,000</td>
+        <td>Free tier (500MB) is enough for early stage.</td>
+      </tr>
+      <tr>
+        <td><strong>Redis Cache</strong></td>
+        <td>Upstash</td>
+        <td class="amt">INR 0 – 800</td>
+        <td>Pay-per-request. Near zero at low usage.</td>
+      </tr>
+      <tr>
+        <td><strong>Video Storage + CDN</strong></td>
+        <td>Cloudflare R2 + BunnyCDN</td>
+        <td class="amt">INR 1,500 – 5,000</td>
+        <td>Depends on content volume and view hours.</td>
+      </tr>
+      <tr>
+        <td><strong>Email</strong></td>
+        <td>Resend</td>
+        <td class="amt">INR 0 – 1,200</td>
+        <td>Free 3,000 emails/mo. Pro at INR 1,200/mo unlimited.</td>
+      </tr>
+      <tr>
+        <td><strong>WhatsApp Notifications</strong></td>
+        <td>Meta WABA via Interakt</td>
+        <td class="amt">INR 500 – 2,000</td>
+        <td>INR 0.40–0.75 per conversation window (24h).</td>
+      </tr>
+      <tr>
+        <td><strong>Zoom (Coaching Sessions)</strong></td>
+        <td>Zoom Pro — 1 host</td>
+        <td class="amt">INR 1,300</td>
+        <td>Required for API access to auto-generate meeting links.</td>
+      </tr>
+      <tr>
+        <td><strong>Razorpay Gateway Fee</strong></td>
+        <td>Razorpay</td>
+        <td class="amt">2% per transaction</td>
+        <td>No monthly fee. On INR 1L revenue = INR 2,000.</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="2"><strong>Total Monthly Infrastructure</strong></td>
+        <td class="amt">INR 4,100 – 16,400</td>
+        <td>Excl. Razorpay %. Scales with student count and video usage.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- YEAR 1 TOTAL -->
+<div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+  <div class="card" style="border:2px solid rgba(251,191,36,0.3);background:rgba(251,191,36,0.05);">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:8px;">Low-end Total (Year 1)</div>
+    <div style="font-size:28px;font-weight:700;color:var(--yellow);font-family:'JetBrains Mono',monospace;">INR 1,87,900</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:6px;">Build INR 1.39L + Infra INR 4.1k x 12 = INR 49k</div>
+  </div>
+  <div class="card" style="border:2px solid rgba(249,115,22,0.3);background:rgba(249,115,22,0.05);">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px;">Mid-range Total (Year 1)</div>
+    <div style="font-size:28px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;">INR 2,40,000</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:6px;">Build INR 1.8L + Infra INR 10k x 12 = INR 60k approx</div>
+  </div>
+  <div class="card" style="border:1px solid var(--border);">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;">High-end Total (Year 1)</div>
+    <div style="font-size:28px;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace;">INR 4,17,000</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:6px;">Build INR 2.2L + Infra INR 16.4k x 12 = INR 1.97L</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 09 — HOW TO PROCEED
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:rgba(249,115,22,0.12);color:var(--accent);">09</div>
+  <div class="sec-title" style="color:var(--accent);">How to Proceed — Phase-by-Phase Action Plan</div>
+  <div class="sec-sub">HDA is currently in Phase 1 (static website, building phase)</div>
+</div>
+
+<div class="proceed-grid">
+
+  <div class="proceed-card" style="border-top:2px solid var(--green);">
+    <div class="proceed-phase" style="color:var(--green);">Phase 1 — Right Now (INR 0–5k)</div>
+    <div class="proceed-title">Complete and Launch the Static Site</div>
+    <div style="font-size:11px;color:var(--muted2);">Validate demand before spending on development. Use no-code tools to collect first revenue.</div>
+    <div class="proceed-items">
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--green-dim);color:var(--green);">1</div>
+        <div class="pi-text">Replace <code>YOUR_GOOGLE_FORM_LINK</code> in <code>js/main.js</code> with your actual Google Form URL</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--green-dim);color:var(--green);">2</div>
+        <div class="pi-text">Buy domain (<strong>hdacoaching.in</strong> ~INR 900) and deploy to Netlify or GitHub Pages</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--green-dim);color:var(--green);">3</div>
+        <div class="pi-text">Set up a <strong>Razorpay Payment Link</strong> for each coaching package. No backend needed — share via WhatsApp</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--green-dim);color:var(--green);">4</div>
+        <div class="pi-text">Connect your real <strong>Calendly</strong> link into the modal. Set your availability for 1:1 sessions</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--green-dim);color:var(--green);">5</div>
+        <div class="pi-text">Add <strong>Google Analytics 4</strong> to the site. You need traffic data before deciding where to invest</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proceed-card" style="border-top:2px solid var(--accent);">
+    <div class="proceed-phase" style="color:var(--accent);">Phase 2 — Months 3–8 (INR 1.5L–2.5L)</div>
+    <div class="proceed-title">Build the Platform After First Revenue</div>
+    <div style="font-size:11px;color:var(--muted2);">Do not start Phase 2 development until you have earned INR 1L+ from Phase 1 clients. That revenue funds the build.</div>
+    <div class="proceed-items">
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--accent-dim);color:var(--accent);">1</div>
+        <div class="pi-text">Sell first 5–10 coaching packages manually. Use Razorpay link + Zoom + WhatsApp. Confirm people pay.</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--accent-dim);color:var(--accent);">2</div>
+        <div class="pi-text">Record 3–5 course modules. Sell via Razorpay link + Google Drive delivery. Validate course demand.</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--accent-dim);color:var(--accent);">3</div>
+        <div class="pi-text">Hire a <strong>full-stack freelancer</strong> (Upwork / LinkedIn). Budget INR 1.4L–2.2L for the full build per the cost table above.</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--accent-dim);color:var(--accent);">4</div>
+        <div class="pi-text">Set up Supabase (DB), Railway (API), Vercel (frontend), R2 + BunnyCDN (video). Use free tiers first.</div>
+      </div>
+      <div class="proceed-item">
+        <div class="pi-num" style="background:var(--accent-dim);color:var(--accent);">5</div>
+        <div class="pi-text">Launch with 1 course + 1:1 coaching. Do not wait for a perfect product — ship and iterate.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proceed-card" style="border-top:2px solid var(--purple);">
+    <div class="proceed-phase" style="color:var(--purple);">Shortcut Bridge (Optional)</div>
+    <div class="proceed-title">No-Code LMS While Platform is Being Built</div>
+    <div style="font-size:11px;color:var(--muted2);">If you cannot wait 3–4 months for a custom build, use Teachable as a bridge. Go live in one week.</div>
+    <div class="proceed-items">
+      <div class="proceed-item" style="background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border);">
+        <div class="pi-num" style="background:var(--purple-dim);color:var(--purple);">A</div>
+        <div class="pi-text"><strong>Teachable</strong> — Full LMS with video, quizzes, certificates, Razorpay. <span style="color:var(--yellow);">INR 3,500–7,000/mo</span>. Launch in 1 week. No dev needed.</div>
+      </div>
+      <div class="proceed-item" style="background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border);">
+        <div class="pi-num" style="background:var(--purple-dim);color:var(--purple);">B</div>
+        <div class="pi-text"><strong>Kajabi</strong> — Courses + email marketing + community + website builder. <span style="color:var(--yellow);">INR 11,000–25,000/mo</span>. Best all-in-one for a coaching business.</div>
+      </div>
+      <div class="proceed-item" style="background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border);">
+        <div class="pi-num" style="background:var(--purple-dim);color:var(--purple);">C</div>
+        <div class="pi-text"><strong>Custom Platform</strong> — Full control, lower long-term cost, own branding. <span style="color:var(--yellow);">INR 1.5L–2.5L one-time</span>. 3–4 months build.</div>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.2);border-radius:8px;">
+        <div style="font-size:11px;color:var(--muted2);">Recommendation: Use <strong style="color:var(--white);">Teachable as a bridge</strong> to start earning while the custom platform is being built. Migrate students once the custom build is live.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- IMMEDIATE CHECKLIST -->
+<div style="margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;">
+  <div style="font-size:12px;font-weight:700;color:var(--white);margin-bottom:14px;">Immediate Action Checklist — Do This Week</div>
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-n">01</div>
+      <div class="check-text">Replace <strong>YOUR_GOOGLE_FORM_LINK</strong> in <code>js/main.js</code> with your real Google Form URL</div>
+    </div>
+    <div class="check-item">
+      <div class="check-n">02</div>
+      <div class="check-text">Buy <strong>hdacoaching.in</strong> on GoDaddy (~INR 900/yr). Connect to Netlify. Enable Cloudflare for free SSL and CDN.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-n">03</div>
+      <div class="check-text">Create a <strong>Razorpay Payment Link</strong> for your 1:1 coaching package. Add it to the site CTA and your WhatsApp bio.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-n">04</div>
+      <div class="check-text">Set up <strong>Calendly</strong> with your real availability. Replace the placeholder link in the apply modal.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-n">05</div>
+      <div class="check-text">Add <strong>Google Analytics 4</strong> to the site. 5 minutes. You need traffic source data before making any marketing decisions.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-n">06</div>
+      <div class="check-text">Decide: <strong>Teachable bridge</strong> (live in 1 week, INR 3.5k/mo) or wait for custom build (INR 1.5L–2.5L, 3–4 months).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 10 — REVENUE MODEL
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--green-dim);color:var(--green);">10</div>
+  <div class="sec-title" style="color:var(--green);">Revenue Model</div>
+  <div class="sec-sub">Illustrative targets at scale</div>
+</div>
+
+<div class="rev-row">
+  <div class="rev-card" style="border-top:2px solid var(--green);">
+    <div class="rev-amt" style="color:var(--green);">INR 5k–12k</div>
+    <div class="rev-label">Per Course Enrolment</div>
+    <div class="rev-sub">Self-paced video course. 100 students/quarter = INR 5L–12L revenue</div>
+  </div>
+  <div class="rev-card" style="border-top:2px solid var(--accent);">
+    <div class="rev-amt" style="color:var(--accent);">INR 15k–60k</div>
+    <div class="rev-label">Per Coaching Package</div>
+    <div class="rev-sub">4–24 week 1:1 mentorship. 10 clients/month = INR 1.5L–6L/mo</div>
+  </div>
+  <div class="rev-card" style="border-top:2px solid var(--blue);">
+    <div class="rev-amt" style="color:var(--blue);">INR 2k–5k</div>
+    <div class="rev-label">Monthly Subscription</div>
+    <div class="rev-sub">All-access pass. 50 members = INR 1L–2.5L MRR</div>
+  </div>
+  <div class="rev-card" style="border-top:2px solid var(--purple);">
+    <div class="rev-amt" style="color:var(--purple);">10–20%</div>
+    <div class="rev-label">Affiliate Commission</div>
+    <div class="rev-sub">Student referral credits. Alumni network creates a marketing flywheel.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 11 — TECH STACK + ROADMAP
+══════════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--teal-dim);color:var(--teal);">11</div>
+  <div class="sec-title" style="color:var(--teal);">Full Tech Stack</div>
+  <div class="sec-sub">Chosen for cost efficiency at this scale</div>
+</div>
+
+<div class="stack-row">
+  <div class="stack-card">
+    <div class="stack-label">Frontend</div>
+    <div class="tags" style="margin-top:0;">
+      <span class="tag b">Next.js 14</span>
+      <span class="tag b">React</span>
+      <span class="tag">Tailwind CSS</span>
+      <span class="tag">Zustand</span>
+      <span class="tag">React Query</span>
+    </div>
+  </div>
+  <div class="stack-card">
+    <div class="stack-label">Backend</div>
+    <div class="tags" style="margin-top:0;">
+      <span class="tag o">Node.js</span>
+      <span class="tag o">Express</span>
+      <span class="tag">Prisma ORM</span>
+      <span class="tag">Bull Queue</span>
+      <span class="tag">Zod</span>
+    </div>
+  </div>
+  <div class="stack-card">
+    <div class="stack-label">Data</div>
+    <div class="tags" style="margin-top:0;">
+      <span class="tag p">PostgreSQL</span>
+      <span class="tag p">Supabase</span>
+      <span class="tag">Upstash Redis</span>
+      <span class="tag t">Cloudflare R2</span>
+    </div>
+  </div>
+  <div class="stack-card">
+    <div class="stack-label">DevOps</div>
+    <div class="tags" style="margin-top:0;">
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">Vercel</span>
+      <span class="tag">Railway</span>
+      <span class="tag">Cloudflare</span>
+      <span class="tag">Sentry</span>
+    </div>
+  </div>
+</div>
+
+<div class="roadmap-row" style="margin-top:14px;">
+  <div class="card" style="border-top:2px solid var(--green);">
+    <span class="badge badge-live" style="margin-bottom:10px;"><span class="live-dot"></span> Phase 1 — Now</span>
+    <div class="c-title">Static Website</div>
+    <div class="c-sub">HTML/CSS/JS. Lead capture via WhatsApp + EmailJS + Calendly. Razorpay Payment Links for manual payments.</div>
+    <div class="tags"><span class="tag g">index.html</span><span class="tag g">coaching.html</span><span class="tag y">INR 0/mo infra</span></div>
+  </div>
+  <div class="card" style="border-top:2px solid var(--accent);">
+    <span class="badge badge-p2" style="margin-bottom:10px;">Phase 2 — Q3–Q4 2025</span>
+    <div class="c-title">Platform Launch</div>
+    <div class="c-sub">Auth, course player, 1:1 booking system, Razorpay checkout, student dashboard. First 3–5 courses live.</div>
+    <div class="tags"><span class="tag o">Backend API</span><span class="tag o">Course Player</span><span class="tag y">INR 4k–16k/mo</span></div>
+  </div>
+  <div class="card" style="border-top:2px solid var(--purple);">
+    <span class="badge badge-p3" style="margin-bottom:10px;">Phase 3 — 2026+</span>
+    <div class="c-title">Scale and Community</div>
+    <div class="c-sub">Live cohort batches, alumni community, affiliate program, mobile app, corporate B2B packages.</div>
+    <div class="tags"><span class="tag p">Mobile App</span><span class="tag p">Cohorts</span><span class="tag y">INR 28k–77k/mo</span></div>
+  </div>
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <strong>Notes:</strong> All INR figures are estimates as of April 2025. Development cost assumes a single experienced full-stack freelancer from the Indian market (Hyderabad, Bangalore, or remote). Agency rates are 2x–4x higher. Razorpay transaction fee (2%) is variable and excluded from monthly infra totals. Video streaming costs depend heavily on content volume and student viewing hours — budget INR 5–15 per GB of egress. For Phase 2, starting with Supabase (database), Railway (API), Vercel (frontend), Cloudflare R2 (storage), and Resend (email) gives the best cost-to-capability ratio for a bootstrapped launch. Migrate to dedicated infrastructure only when monthly revenue exceeds INR 3L consistently.
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

@@ -246,6 +246,34 @@ document.querySelectorAll('[data-tabs]').forEach(container => {
   });
 });
 
+// ---------- Transformation Carousel Drag ----------
+(function () {
+  const track = document.getElementById('tfTrack');
+  if (!track) return;
+  let isDragging = false, startX = 0, scrollStart = 0, moved = false;
+
+  track.addEventListener('mousedown', e => {
+    isDragging = true; moved = false;
+    startX = e.pageX;
+    scrollStart = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    track.style.cursor = 'grab';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.pageX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    track.scrollLeft = scrollStart - dx;
+  });
+  // Prevent click-through after drag
+  track.addEventListener('click', e => {
+    if (moved) { e.preventDefault(); e.stopPropagation(); }
+  });
+})();
+
 // ---------- Lightbox ----------
 const lightbox = document.createElement('div');
 lightbox.className = 'lightbox';
@@ -549,7 +577,18 @@ function closeApplyModal() {
   if (!modal) return;
   modal.classList.remove('active');
   document.body.style.overflow = '';
+  document.querySelector('.nav-cta')?.focus();
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('applyModal');
+    if (modal?.classList.contains('active')) {
+      e.preventDefault();
+      closeApplyModal();
+    }
+  }
+});
 
 // ---------- Sanitize ----------
 function sanitize(str, maxLen) {
@@ -746,6 +785,24 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeMobileMenu();
     closeApplyModal();
+    closeTransformModal();
     if (lightbox.classList.contains('open')) closeLightbox();
   }
 });
+
+// ---------- Transformation Modal ----------
+function openTransformModal() {
+  const modal = document.getElementById('transformModal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeTransformModal() {
+  const modal = document.getElementById('transformModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}

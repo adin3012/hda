@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#0a0a0a" />
-  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>HDA | Himanshu Deka | Men's Fitness Coach</title>
   <meta name="description" content="Himanshu Deka, Men's Fitness Coach. Evidence-based 1:1 coaching for fat loss, body recomposition, and performance. 350+ clients transformed since 2019." />
@@ -21,6 +24,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
   <nav>
     <div class="container nav-inner">
@@ -39,13 +43,14 @@
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Home</a>
-    <a href="coaching.html">Coaching</a>
-    <a href="course.html">Course</a>
-    <a href="mentorship.html">Mentorship</a>
-    <a href="#" onclick="openApplyModal();return false;" class="mm-cta">Apply Now</a>
-  </div>
+  <main id="main">
+    <div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Home</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="course.html">Course</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="#" onclick="openApplyModal();return false;" class="mm-cta">Apply Now</a>
+    </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -287,46 +292,95 @@
     </div>
   </section>
 
-  <!-- RESULTS -->
+  <!-- Transformations Preview -->
   <section class="results-section">
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-label">Results</span>
         <h2>Real Clients.<br/>Real Transformations.</h2>
-        <p>This is what consistent execution of the system produces.</p>
+        <p>350+ transformations since 2019. Tap below to see them all.</p>
       </div>
-      <div class="transform-grid fade-in">
-        <div class="transform-item" data-src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=900&q=90">
-          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="Client" loading="lazy" />
-          <div class="transform-meta">
-            <strong>Adin</strong>
-            <span>12kg Lost</span>
+      <div class="transform-preview-grid fade-in">
+        <div class="transform-preview-card" onclick="openTransformModal()">
+          <div class="transform-preview-logo">
+            <img src="images/hda-logo.jpeg" alt="HDA Logo" />
           </div>
-        </div>
-        <div class="transform-item" data-src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=900&q=90">
-          <img src="https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=400&q=80" alt="Client" loading="lazy" />
-          <div class="transform-meta">
-            <strong>Siddhartha</strong>
-            <span>15kg Lost</span>
-          </div>
-        </div>
-        <div class="transform-item" data-src="https://images.unsplash.com/photo-1598966739654-5e9a252d8c9b?w=900&q=90">
-          <img src="https://images.unsplash.com/photo-1598966739654-5e9a252d8c9b?w=400&q=80" alt="Client" loading="lazy" />
-          <div class="transform-meta">
-            <strong>Deva</strong>
-            <span>88kg → 78kg</span>
-          </div>
-        </div>
-        <div class="transform-item" data-src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=90">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Client" loading="lazy" />
-          <div class="transform-meta">
-            <strong>Nirmay</strong>
-            <span>1 Year Transformation</span>
-          </div>
+          <h3>Tap Here to See Transformations</h3>
+          <span class="transform-preview-cta">
+            View Gallery
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Transformations Modal -->
+  <div class="transform-modal" id="transformModal">
+    <div class="transform-modal-overlay" onclick="closeTransformModal()"></div>
+    <div class="transform-modal-content">
+      <button class="transform-modal-close" onclick="closeTransformModal()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="transform-modal-header">
+        <span class="section-label">Real Results</span>
+        <h2>350+ Transformations & Counting</h2>
+        <p>Real people with real schedules who committed to the process. No shortcuts. Just consistent work and the right guidance.</p>
+        <div class="transform-modal-team">team HDA</div>
+      </div>
+      <div class="transform-modal-grid">
+        <div class="transform-modal-item"><img src="images/t-kankan.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-biswaraj.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-mayur.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-mayur2.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-atish.png" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-abhijnan.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-abhijnan2.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-nkb.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-nkb2.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-whosammix.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-whosammix2.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-senpai.webp" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-1.png" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j1.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j2.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j3.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j4.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j5.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j6.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j7.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j8.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j9.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j10.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j11.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j12.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j13.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j14.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j15.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j16.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j17.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item"><img src="images/t-j18.jpg" alt="Transformation" loading="lazy" /></div>
+        <div class="transform-modal-item transform-modal-cta-card" onclick="closeTransformModal();openApplyModal();">
+          <span class="cta-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </span>
+          <span class="cta-text">You Could Be<br/>Next!</span>
+          <span class="cta-sub">350+ transformations</span>
+          <span class="cta-btn">Apply Now →</span>
+        </div>
+      </div>
+      <div class="transform-modal-cta">
+        <p>Ready to write your own transformation story?</p>
+        <a href="#" onclick="closeTransformModal();openApplyModal();return false;" class="btn btn-primary">Apply for Coaching</a>
+      </div>
+    </div>
+  </div>
 
   <!-- TESTIMONIALS -->
   <section class="testimonials-section">
@@ -341,73 +395,85 @@
       <div class="testimonials-scroll">
         <div class="testimonial-card">
           <div class="testimonial-content">
-            <p>Working with Himanshu changed everything. Lost 12kg in 4 months while working 60+ hour weeks. The accountability made all the difference.</p>
+            <p>Himanshu's approach was different from anything I'd tried before. It was a difficult transformation but he pushed me through every step. Incredibly grateful.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">K</div>
+            <div>
+              <div class="testimonial-name">Kankan Kalita</div>
+              <div class="testimonial-role">@kankan_kalita_coach</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>It was an absolute pleasure working with Himanshu. The planning was precise and the execution even better. Couldn't have done this without HDA.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">B</div>
+            <div>
+              <div class="testimonial-name">Biswaraj Das</div>
+              <div class="testimonial-role">@biswaraj_das</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>One of the best decisions I made. Himanshu kept me disciplined and focused. The results speak for themselves — so happy with this transformation.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-name">Mayur Kalita</div>
+              <div class="testimonial-role">@mayurkalita94</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Very dedicated program. Himanshu's execution planning is on another level. As an aspiring fitness professional, this mentorship shaped my entire approach.</p>
           </div>
           <div class="testimonial-author">
             <div class="testimonial-avatar">A</div>
             <div>
-              <div class="testimonial-name">Arjun</div>
-              <div class="testimonial-role">Software Engineer</div>
+              <div class="testimonial-name">Abhijnan Gogoi</div>
+              <div class="testimonial-role">@abhijnan_gogoi_100</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-content">
-            <p>Finally something that actually stuck. No crazy restrictions, just a system that works. Best investment I've made in myself.</p>
-          </div>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">P</div>
-            <div>
-              <div class="testimonial-name">Prakash</div>
-              <div class="testimonial-role">Marketing Manager</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <p>I was skeptical about online coaching. Himanshu proved me wrong. The weekly check-ins kept me on track when nothing else did.</p>
+            <p>Stop imagining and start taking action — that's what Himanshu drilled into me. One of the most dedicated coaches I've worked with. Worth every rupee.</p>
           </div>
           <div class="testimonial-author">
             <div class="testimonial-avatar">N</div>
             <div>
-              <div class="testimonial-name">Nirmay</div>
-              <div class="testimonial-role">Business Owner</div>
+              <div class="testimonial-name">Nekib</div>
+              <div class="testimonial-role">@oye_its_nkb</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-content">
-            <p>As a doctor, I'm particular about who I trust with my health. Himanshu's scientific approach made him the obvious choice.</p>
+            <p>Himanshu said I was one of the most hardworking men in the room — and that kept me going. The results I achieved with HDA exceeded everything I expected.</p>
           </div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">D</div>
+            <div class="testimonial-avatar">P</div>
             <div>
-              <div class="testimonial-name">Dr. Aryan</div>
-              <div class="testimonial-role">Medical Professional</div>
+              <div class="testimonial-name">Piyush Goswami</div>
+              <div class="testimonial-role">@fit_with_pg</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="testimonial-content">
-            <p>Lost 15kg without giving up my favorite foods. Himanshu taught me that fitness doesn't mean starving yourself.</p>
-          </div>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">H</div>
-            <div>
-              <div class="testimonial-name">Harshit</div>
-              <div class="testimonial-role">Corporate Employee</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <p>Working with Himanshu changed everything. Lost 12kg in 4 months while working 60+ hour weeks. The accountability made all the difference.</p>
+            <p>HDA completely shifted how I approach fitness. The structure, the accountability, the knowledge — everything was top tier. Highly recommend to anyone serious about results.</p>
           </div>
           <div class="testimonial-author">
             <div class="testimonial-avatar">A</div>
             <div>
-              <div class="testimonial-name">Arjun</div>
-              <div class="testimonial-role">Software Engineer</div>
+              <div class="testimonial-name">Adin Ankur Saikia</div>
+              <div class="testimonial-role">HDA Client</div>
             </div>
           </div>
         </div>
@@ -426,7 +492,7 @@
       <div class="prog-grid">
         <div class="prog-card fade-in">
           <div class="prog-card-img">
-            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=85" alt="1:1 Coaching" loading="lazy" />
+            <img src="images/himanshu-gym.png" alt="1:1 Coaching" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('img-fallback')" />
           </div>
           <div class="prog-card-body">
             <span class="prog-card-tag">Most Popular</span>
@@ -437,7 +503,7 @@
         </div>
         <div class="prog-card fade-in">
           <div class="prog-card-img">
-            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=85" alt="HDA Course" loading="lazy" />
+            <img src="images/hda-course-teaching.png" alt="HDA Course" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('img-fallback')" />
           </div>
           <div class="prog-card-body">
             <span class="prog-card-tag">Self-Paced</span>
@@ -448,7 +514,7 @@
         </div>
         <div class="prog-card fade-in">
           <div class="prog-card-img">
-            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=85" alt="HDA Mentorship" loading="lazy" />
+            <img src="images/hda-course-teaching.png" alt="HDA Mentorship" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('img-fallback')" />
           </div>
           <div class="prog-card-body">
             <span class="prog-card-tag">Career</span>
@@ -531,11 +597,26 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Support</h4>
-          <ul>
-            <li><a href="mailto:himanshudeka76@gmail.com">Help &amp; Support</a></li>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          </ul>
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <p class="footer-contact-text">Have questions? I'm just a message away.</p>
+            <a href="tel:+918486791489" class="footer-contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.88a16 16 0 0 0 6.29 6.29l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              +91 84867 91489
+            </a>
+            <a href="mailto:himanshudeka76@gmail.com" class="footer-contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 7l-10 7L2 7"/>
+              </svg>
+              himanshudeka76@gmail.com
+            </a>
+          </div>
+          <div class="footer-contact-note">
+            <a href="privacy-policy.html">Privacy Policy</a>
+          </div>
         </div>
       </div>
       <div class="footer-bottom">
@@ -545,6 +626,7 @@
     </div>
   </footer>
 
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/main.js"></script>
 </body>
