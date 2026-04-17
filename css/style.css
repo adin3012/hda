@@ -1013,6 +1013,14 @@ nav {
   color: var(--muted);
   margin-bottom: 1rem;
 }
+.page-eyebrow--highlight {
+  color: #0a0a0a;
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
 .page-hero h1 { margin-bottom: 20px; }
 .page-hero-sub { max-width: 580px; margin: 0 auto; font-size: 1.1rem; color: var(--text2); }
 
