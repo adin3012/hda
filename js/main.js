@@ -562,11 +562,18 @@ function openApplyModal() {
 }
 
 const MENTORSHIP_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeao9f6eGiqDS6OwgkTtbCB07rtGkImzAUUF4nOaIsGRRRQXA/viewform';
+const COACHING_COURSE_FORM_URL = 'https://forms.gle/Mm8xgfYLXVKzCqzS7';
 
 function showApplyForm() {
-  if (window.location.pathname.includes('mentorship')) {
+  const path = window.location.pathname;
+  if (path.includes('mentorship')) {
     closeApplyModal();
     window.open(MENTORSHIP_FORM_URL, '_blank', 'noopener,noreferrer');
+    return;
+  }
+  if (path.includes('coaching') || path.includes('course') || path === '/' || path.endsWith('index.html')) {
+    closeApplyModal();
+    window.open(COACHING_COURSE_FORM_URL, '_blank', 'noopener,noreferrer');
     return;
   }
   document.getElementById('applyStep1').style.display = 'none';
