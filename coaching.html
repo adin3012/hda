@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#0a0a0a" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index, follow" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -16,12 +17,57 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="1:1 Online Coaching | HDA | Himanshu Deka" />
   <meta property="og:description" content="Evidence-based 1:1 online coaching for men serious about fat loss, body recomposition and performance development." />
-  <meta property="og:image" content="images/himanshu-gym.png" />
+  <meta property="og:image" content="images/himanshu-gym.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20260419" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "1:1 Online Fitness Coaching",
+        "url": "https://himanshudeka.com/coaching.html",
+        "provider": {
+          "@type": "Person",
+          "name": "Himanshu Deka",
+          "url": "https://himanshudeka.com/"
+        },
+        "description": "Evidence-based 1:1 online coaching for men serious about fat loss, body recomposition and performance development.",
+        "areaServed": "Worldwide",
+        "serviceType": "Personal Fitness Coaching"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What's included in 1:1 coaching?",
+            "acceptedAnswer": { "@type": "Answer", "text": "You get a fully personalised training program, a custom nutrition plan, supplement guidance, weekly check-ins, training form reviews via video, and direct WhatsApp access for questions during working hours." }
+          },
+          {
+            "@type": "Question",
+            "name": "How long before I see results?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Most clients notice changes in energy, strength, and body composition within 4–6 weeks of consistent execution. Visible physical transformation typically becomes clear by the 8–12 week mark." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need a gym, or can I train at home?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Both work. Programs are designed around the equipment you have access to — whether that's a fully equipped gym, a home setup, or minimal equipment." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this suitable for complete beginners?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Beginners are actually ideal candidates for coaching because you build the right habits from the start. The programme will match your current level and progress you systematically." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -128,7 +174,7 @@
     <div class="container">
       <div class="solution-grid">
         <div class="solution-img fade-in">
-          <img src="images/coaching-hero.jpg" alt="Coaching" loading="lazy" style="object-position: 30% center;" />
+          <img src="images/coaching-hero.jpg" alt="Himanshu Deka coaching" loading="eager" style="object-position: 30% center;" />
         </div>
         <div class="solution-content fade-in">
           <span class="section-label">The Solution</span>
@@ -227,7 +273,8 @@
   <section class="why-section">
     <div class="container">
       <div class="section-header fade-in">
-        <h2 style="font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);">This Coaching Is For You If You Want Real Results</h2>
+        <h2>Who This Is For</h2>
+        <p>This coaching is built for men who are done spinning their wheels and ready to commit to a real system.</p>
       </div>
       <div class="why-grid">
         <div class="why-card fade-in">
@@ -251,6 +298,10 @@
           <h3>Serious About Goals</h3>
           <p>You are committed to the process. You will follow the plan consistently.</p>
         </div>
+      </div>
+      <div class="fade-in" style="text-align:center; margin-top:48px;">
+        <p style="color:var(--text2); font-size:1rem; margin-bottom:24px;">If you see yourself in any of these — you're the right fit.</p>
+        <a href="#" onclick="openApplyModal();return false;" class="btn btn-primary btn-lg">Apply for Coaching <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </section>

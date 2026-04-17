@@ -561,7 +561,14 @@ function openApplyModal() {
   document.body.style.overflow = 'hidden';
 }
 
+const MENTORSHIP_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeao9f6eGiqDS6OwgkTtbCB07rtGkImzAUUF4nOaIsGRRRQXA/viewform';
+
 function showApplyForm() {
+  if (window.location.pathname.includes('mentorship')) {
+    closeApplyModal();
+    window.open(MENTORSHIP_FORM_URL, '_blank', 'noopener,noreferrer');
+    return;
+  }
   document.getElementById('applyStep1').style.display = 'none';
   document.getElementById('applyStep2').style.display = 'block';
   updateModalPricing();
