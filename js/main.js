@@ -462,7 +462,7 @@ function updateModalPricing() {
             Call +91 84867 91489
           </a>
           <button class="btn-modal-form" onclick="showApplyForm()" style="justify-content:center;">
-            Fill in the form instead
+            Fill Out the Form
           </button>
         </div>
       </div>
