@@ -910,13 +910,16 @@ nav {
   transform: translateY(-8px);
 }
 .prog-card-img {
-  aspect-ratio: 16/10;
+  height: 220px;
   overflow: hidden;
   background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .prog-card-img img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 .prog-card:hover .prog-card-img img { transform: scale(1.05); }
@@ -1474,8 +1477,8 @@ footer {
     border-radius: var(--radius);
     overflow: hidden;
   }
-  .prog-card-img { aspect-ratio: 16/9; }
-  .prog-card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .prog-card-img { height: 180px; }
+  .prog-card-img img { width: 100%; height: 100%; object-fit: contain; }
   .prog-card-body { padding: 16px; }
   .prog-card-tag { font-size: 0.65rem; margin-bottom: 8px; }
   .prog-card-body h3 { font-size: 1rem; margin-bottom: 6px; }
