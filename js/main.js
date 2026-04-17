@@ -564,6 +564,11 @@ function openApplyModal() {
 const MENTORSHIP_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeao9f6eGiqDS6OwgkTtbCB07rtGkImzAUUF4nOaIsGRRRQXA/viewform';
 const COACHING_COURSE_FORM_URL = 'https://forms.gle/Mm8xgfYLXVKzCqzS7';
 
+function openFormDirect() {
+  const url = window.location.pathname.includes('mentorship') ? MENTORSHIP_FORM_URL : COACHING_COURSE_FORM_URL;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
 function showApplyForm() {
   const path = window.location.pathname;
   if (path.includes('mentorship')) {
