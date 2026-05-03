@@ -648,23 +648,20 @@ function handleFormSubmit() {
 
   submitLeadToSheets({ name, email, interest, source: 'apply-modal' });
 
-  // TODO: Replace with your actual API endpoint
-  fetch('YOUR_API_ENDPOINT/api/contact', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, weight, height, age, activity, interest, message: goal })
-  })
-  .then(res => {
-    if (!res.ok) throw new Error('Server error');
-    const form    = document.getElementById('hdaContactForm');
-    const success = document.getElementById('hdaFormSuccess');
-    if (form)    form.style.display    = 'none';
-    if (success) success.style.display = 'block';
-  })
-  .catch(() => {
-    if (btn) { btn.disabled = false; btn.textContent = 'Send My Details'; }
-    showToast('Something went wrong. Please try again or message on WhatsApp.', 'error');
-  });
+  // Show success immediately — fire-and-forget to backend when endpoint is configured
+  const form    = document.getElementById('hdaContactForm');
+  const success = document.getElementById('hdaFormSuccess');
+  if (form)    form.style.display    = 'none';
+  if (success) success.style.display = 'block';
+
+  const CONTACT_ENDPOINT = '';  // TODO: set to your API endpoint e.g. 'https://yoursite.com/api/contact'
+  if (CONTACT_ENDPOINT) {
+    fetch(CONTACT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, weight, height, age, activity, interest, message: goal })
+    }).catch(() => {}); // silent — success already shown
+  }
 }
 
 // ---------- Dynamic Pricing (standalone page) ----------
