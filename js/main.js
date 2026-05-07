@@ -1,7 +1,8 @@
 /* ============================================================
    main.js — Himanshu Deka Academy (HDA)
-   Functionalities mirrored from GFWA + HDA enhancements
    ============================================================ */
+
+(function () {
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -56,7 +57,6 @@ if (!prefersReducedMotion) {
   fadeEls.forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < vph) {
-      // Already in viewport on load — show immediately, no animation
       el.style.opacity = '1';
       el.style.transform = 'none';
     } else {
@@ -268,7 +268,6 @@ document.querySelectorAll('[data-tabs]').forEach(container => {
     if (Math.abs(dx) > 4) moved = true;
     track.scrollLeft = scrollStart - dx;
   });
-  // Prevent click-through after drag
   track.addEventListener('click', e => {
     if (moved) { e.preventDefault(); e.stopPropagation(); }
   });
@@ -314,11 +313,8 @@ function toggleVideo() {
 }
 
 // ---------- Google Sheets Lead Capture ----------
-// HOW TO SET UP:
-// 1. Go to forms.google.com and create a form with fields: Name, Email, WhatsApp, Interest, Source
-// 2. Get the form action URL from the form's pre-filled link
-// 3. Get entry IDs by inspecting the form network request
-// 4. Set LEADS_ENABLED = true and fill in your values below
+// Setup: create a Google Form with fields: Name, Email, WhatsApp, Interest, Source
+// Get the form action URL and entry IDs, then set LEADS_ENABLED = true below.
 
 const LEADS_ENABLED = false; // set to true once configured
 const GOOGLE_FORM_ACTION = 'YOUR_GOOGLE_FORM_ACTION_URL';
@@ -375,7 +371,6 @@ function submitLeadToSheets(data) {
     if (e.target === document.getElementById('leadPopup')) closeLeadPopup(true);
   });
 
-  // Show after 5 seconds
   setTimeout(() => {
     const popup = document.getElementById('leadPopup');
     if (popup && !localStorage.getItem('hda_lead_captured')) {
@@ -414,7 +409,6 @@ function closeLeadPopup(skipFlag) {
 }
 
 // ---------- Pricing ----------
-// TODO: Update with Himanshu's actual pricing per plan
 const PRICING = {
   IN: { symbol: '₹', monthly: '8,000',  quarterly: '21,000', halfYearly: '38,000', annual: '72,000', flag: '🇮🇳 India' },
   US: { symbol: '$', monthly: '120',    quarterly: '300',    halfYearly: '540',    annual: '1,020',  flag: '🇺🇸 USA' },
@@ -561,7 +555,7 @@ function openApplyModal() {
   document.body.style.overflow = 'hidden';
 }
 
-const MENTORSHIP_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeao9f6eGiqDS6OwgkTtbCB07rtGkImzAUUF4nOaIsGRRRQXA/viewform';
+const MENTORSHIP_FORM_URL      = 'https://docs.google.com/forms/d/e/1FAIpQLSeao9f6eGiqDS6OwgkTtbCB07rtGkImzAUUF4nOaIsGRRRQXA/viewform';
 const COACHING_COURSE_FORM_URL = 'https://forms.gle/Mm8xgfYLXVKzCqzS7';
 
 function openFormDirect() {
@@ -648,19 +642,18 @@ function handleFormSubmit() {
 
   submitLeadToSheets({ name, email, interest, source: 'apply-modal' });
 
-  // Show success immediately — fire-and-forget to backend when endpoint is configured
   const form    = document.getElementById('hdaContactForm');
   const success = document.getElementById('hdaFormSuccess');
   if (form)    form.style.display    = 'none';
   if (success) success.style.display = 'block';
 
-  const CONTACT_ENDPOINT = '';  // TODO: set to your API endpoint e.g. 'https://yoursite.com/api/contact'
+  const CONTACT_ENDPOINT = '';  // TODO: set to your API endpoint
   if (CONTACT_ENDPOINT) {
     fetch(CONTACT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, weight, height, age, activity, interest, message: goal })
-    }).catch(() => {}); // silent — success already shown
+    }).catch(() => {});
   }
 }
 
@@ -720,7 +713,6 @@ function handleForm(formEl) {
 }
 
 handleForm(document.getElementById('applyForm'));
-handleForm(document.getElementById('enquiryForm'));
 
 // ---------- Story Slider ----------
 (function initStorySlider() {
@@ -738,7 +730,6 @@ handleForm(document.getElementById('enquiryForm'));
   let isDragging = false;
   let dragDelta  = 0;
 
-  // Build dots
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
@@ -762,7 +753,6 @@ handleForm(document.getElementById('enquiryForm'));
   if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
 
-  // Touch / mouse drag
   function onDragStart(x) { startX = x; isDragging = true; dragDelta = 0; track.style.transition = 'none'; }
   function onDragMove(x)  { if (!isDragging) return; dragDelta = x - startX; track.style.transform = `translateX(calc(-${current * 100}% + ${dragDelta}px))`; }
   function onDragEnd()    {
@@ -775,18 +765,15 @@ handleForm(document.getElementById('enquiryForm'));
     else updateUI();
   }
 
-  // Touch
   wrap.addEventListener('touchstart', e => onDragStart(e.touches[0].clientX), { passive: true });
   wrap.addEventListener('touchmove',  e => onDragMove(e.touches[0].clientX),  { passive: true });
   wrap.addEventListener('touchend',   onDragEnd);
 
-  // Mouse drag
   wrap.addEventListener('mousedown',  e => onDragStart(e.clientX));
   wrap.addEventListener('mousemove',  e => onDragMove(e.clientX));
   wrap.addEventListener('mouseup',    onDragEnd);
   wrap.addEventListener('mouseleave', onDragEnd);
 
-  // Keyboard when focused
   wrap.setAttribute('tabindex', '0');
   wrap.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  goTo(current - 1);
@@ -967,4 +954,23 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeTestiYT(); closeTestiPopup(); }
 });
 
+// ---------- Expose to global scope (required by HTML inline handlers) ----------
+window.openApplyModal        = openApplyModal;
+window.closeApplyModal       = closeApplyModal;
+window.applyViaWhatsApp      = applyViaWhatsApp;
+window.showApplyForm         = showApplyForm;
+window.handleFormSubmit      = handleFormSubmit;
+window.updateModalPricing    = updateModalPricing;
+window.handleLeadPopupSubmit = handleLeadPopupSubmit;
+window.closeLeadPopup        = closeLeadPopup;
+window.openTransformModal    = openTransformModal;
+window.closeTransformModal   = closeTransformModal;
+window.openTestiYT           = openTestiYT;
+window.closeTestiYT          = closeTestiYT;
+window.openTestiPopup        = openTestiPopup;
+window.closeTestiPopup       = closeTestiPopup;
+window.toggleVideo           = toggleVideo;
+window.updatePricing         = updatePricing;
+window.openFormDirect        = openFormDirect;
 
+})();
