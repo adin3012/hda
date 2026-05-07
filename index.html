@@ -422,113 +422,98 @@
   </div>
 
   <!-- TESTIMONIALS -->
-  <section class="testimonials-section" id="testimonials">
-    <div class="container">
-      <div class="testi-hero fade-in">
-        <span class="testi-eyebrow">REAL SUCCESS STORIES</span>
-        <h2 class="testi-headline">Scientific Mastery.<br>Human Transformation.</h2>
-        <p class="testi-sub">300+ scholars. Dozens of countries. One thing in common — real knowledge that produces real results.</p>
-        <div class="testi-actions">
-          <a href="#" onclick="openApplyModal();return false;" class="btn btn-primary btn-pill">
-            Get Started
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <button class="testi-yt-preview" onclick="openTestiYT()">
-            <div class="testi-yt-thumb-wrap">
-              <img src="https://img.youtube.com/vi/HDKWAIgmtxc/maxresdefault.jpg" alt="Watch overview" loading="lazy" />
-              <div class="testi-yt-play-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-              </div>
-            </div>
-            <span>Watch Video</span>
-          </button>
-        </div>
-      </div>
-      <div class="testi-words-head fade-in">
-        <h3>In Their Own Words</h3>
-      </div>
-      <div class="testi-carousel-outer fade-in">
-        <button class="testi-nav-btn testi-nav-prev" id="testiPrev" aria-label="Previous">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="testi-carousel-wrap" id="testiCarouselWrap">
-          <div class="testi-carousel-track" id="testiTrack"></div>
-        </div>
-        <button class="testi-nav-btn testi-nav-next" id="testiNext" aria-label="Next">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-      <div class="testi-dots" id="testiDots"></div>
-    </div>
-  </section>
-
-  <!-- Testimonial Popup Modal -->
-  <div class="testi-popup-modal" id="testiPopupModal">
-    <div class="testi-popup-overlay" onclick="closeTestiPopup()"></div>
-    <div class="testi-popup-box">
-      <button class="testi-popup-close" onclick="closeTestiPopup()" aria-label="Close">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <div class="testi-popup-avatar" id="popupAvatar"></div>
-      <div class="testi-popup-name" id="popupName"></div>
-      <div class="testi-popup-role" id="popupRole"></div>
-      <p class="testi-popup-text" id="popupText"></p>
-    </div>
-  </div>
-
-  <!-- YouTube Modal -->
-  <div class="testi-yt-modal" id="testiYTModal">
-    <div class="testi-yt-overlay" onclick="closeTestiYT()"></div>
-    <div class="testi-yt-box">
-      <button class="testi-yt-close" onclick="closeTestiYT()" aria-label="Close">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <div class="testi-yt-embed">
-        <iframe id="testiYTIframe" src="" frameborder="0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROGRAMS -->
-  <section class="programs-section" id="programs">
+  <section class="testimonials-section">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-label">Your Options</span>
-        <h2>Three Ways to<br/>Work with Himanshu</h2>
-        <p>Choose the path that fits your goals and commitment level.</p>
+        <span class="section-label">Client Stories</span>
+        <h2>What Clients Say</h2>
+        <p>Here's what the people I've coached have to say.</p>
       </div>
-      <div class="prog-grid">
-        <div class="prog-card fade-in">
-          <div class="prog-card-img">
-            <img src="images/prog-coaching.jpg" alt="1:1 Coaching" loading="eager" />
+    </div>
+    <div class="testimonials-wrapper">
+      <div class="testimonials-scroll" id="testimonialsScroll">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Himanshu's approach was different from anything I'd tried before. It was a difficult transformation but he pushed me through every step. Incredibly grateful.</p>
           </div>
-          <div class="prog-card-body">
-            <span class="prog-card-tag">Most Popular</span>
-            <h3>1:1 Online Coaching</h3>
-            <p>Personalized training and nutrition for men serious about transforming their physique.</p>
-            <a href="coaching.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-        <div class="prog-card fade-in">
-          <div class="prog-card-img">
-            <img src="images/prog-course.jpg" alt="HDA Course" loading="lazy" />
-          </div>
-          <div class="prog-card-body">
-            <span class="prog-card-tag">Self-Paced</span>
-            <h3>HDA Course</h3>
-            <p>Master the fundamentals of training, nutrition, and programming—built for real-world application.</p>
-            <a href="course.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">K</div>
+            <div>
+              <div class="testimonial-name">Kankan Kalita</div>
+              <div class="testimonial-role">@kankan_kalita_coach</div>
+            </div>
           </div>
         </div>
-        <div class="prog-card fade-in">
-          <div class="prog-card-img">
-            <img src="images/prog-mentorship.jpg" alt="HDA Mentorship" loading="lazy" />
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>It was an absolute pleasure working with Himanshu. The planning was precise and the execution even better. Couldn't have done this without HDA.</p>
           </div>
-          <div class="prog-card-body">
-            <span class="prog-card-tag">Career</span>
-            <h3>HDA Mentorship</h3>
-            <p>A structured program to identify your gaps, build your systems, and evolve as a high-level coach.</p>
-            <a href="mentorship.html" class="prog-card-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">B</div>
+            <div>
+              <div class="testimonial-name">Biswaraj Das</div>
+              <div class="testimonial-role">@biswaraj_das</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>One of the best decisions I made. Himanshu kept me disciplined and focused. The results speak for themselves — so happy with this transformation.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-name">Mayur Kalita</div>
+              <div class="testimonial-role">@mayurkalita94</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Very dedicated program. Himanshu's execution planning is on another level. As an aspiring fitness professional, this mentorship shaped my entire approach.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Abhijnan Gogoi</div>
+              <div class="testimonial-role">@abhijnan_gogoi_100</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Stop imagining and start taking action — that's what Himanshu drilled into me. One of the most dedicated coaches I've worked with. Worth every rupee.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">N</div>
+            <div>
+              <div class="testimonial-name">Nekib</div>
+              <div class="testimonial-role">@oye_its_nkb</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>Himanshu said I was one of the most hardworking men in the room — and that kept me going. The results I achieved with HDA exceeded everything I expected.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">P</div>
+            <div>
+              <div class="testimonial-name">Piyush Goswami</div>
+              <div class="testimonial-role">@fit_with_pg</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p>HDA completely shifted how I approach fitness. The structure, the accountability, the knowledge — everything was top tier. Highly recommend to anyone serious about results.</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Adin Ankur Saikia</div>
+              <div class="testimonial-role">HDA Client</div>
+            </div>
           </div>
         </div>
       </div>
